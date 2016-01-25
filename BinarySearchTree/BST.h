@@ -37,6 +37,8 @@ private:
 
     //function to remove a non-root node
     void RemoveMatch (node *parent, node *match, bool check);
+
+    int HeightOfTreePrivate (node *Ptr);
     
 public:
     
@@ -60,5 +62,5 @@ public:
     //function to call the private function to remove a root node
     void RemoveNode (int key);
 
-    void HeightOfTree ();
+    int HeightOfTree ();
 };

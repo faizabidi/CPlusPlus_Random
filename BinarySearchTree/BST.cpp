@@ -165,17 +165,6 @@ int BST::SmallestNodePrivate (node *Ptr)
 	return Ptr->key;
 }
 
-void BST::HeightOfTree ()
-{
-	int count1 = 0;//count2 = 0;
-	while (root != NULL)
-	{
-		count1++;
-		root = root->left;
-	}
-	std::cout<<"Left height is "<<count1;
-}
-
 //pubiic function calling the private function to delete a node
 void BST::RemoveNode (int key) { RemoveNodePrivate (key, root); }
 
@@ -337,4 +326,13 @@ void BST::RemoveMatch(node *parent, node *match, bool check)
 			return;
 		}		
 	}
+}
+
+int BST::HeightOfTree () { return HeightOfTreePrivate (root); }
+
+int BST::HeightOfTreePrivate (node *Ptr)
+{
+	if (Ptr == NULL) { return 0; }
+	else
+		return 1 + std::max (HeightOfTreePrivate (Ptr->left), HeightOfTreePrivate (Ptr->right));
 }
