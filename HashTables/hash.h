@@ -8,6 +8,7 @@ class HashTab
 public:
 	//default constructor
 	HashTab ();
+	//hash function
 	int Hash (std::string key);
 	void AddItem (std::string name, std::string drink);
 	int NumberOfItemsInIndex (int index);

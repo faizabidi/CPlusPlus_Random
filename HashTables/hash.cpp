@@ -122,7 +122,6 @@ void HashTab::SearchDrink (std::string name)
 	//find the bucket in which that name is stored
 	int bucket = Hash (name);
 
-	//check if the name if beyond the table size
 	bool foundName = false;
 
 	//string to store the name of the drink
