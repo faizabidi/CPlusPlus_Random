@@ -1,3 +1,6 @@
+//this method is called run-length encoding
+//aabbca becomes a2b2ca1
+
 #include <iostream>
 
 void CompressString (std::string str)
