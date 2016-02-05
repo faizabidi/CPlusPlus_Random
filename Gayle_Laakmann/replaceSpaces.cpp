@@ -15,7 +15,7 @@ void ReplaceSpaces (std::string str)
 	{
 		//if space found
 		if (str[i] == ' ')
-			newStr.append ("&20");
+			newStr.append ("%20");
 		else
 			//just add the characters of the original string into the new string
 			newStr.push_back (str[i]);
