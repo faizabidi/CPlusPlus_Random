@@ -50,6 +50,7 @@ void LinkedList::printList ()
 	std::cout << "NULL\n";
 }
 
+//without using frame buffer
 void LinkedList::removeDuplicates ()
 {
 	//if tree is empty
@@ -81,3 +82,9 @@ void LinkedList::removeDuplicates ()
  		current = current->next;
  	}
 }
+
+/* 
+We could have implemented a hashtable and then removed the removeDuplicates.
+In that case, we would create a new hashtable, and keep adding new elemnets from original list...
+...to the new hashtable.
+*/
