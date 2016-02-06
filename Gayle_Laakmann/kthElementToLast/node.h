@@ -17,7 +17,6 @@ public:
 	node *createNode (int key);	
 	void appendNodeBack (int key);
 	void printList ();
-	void removeDuplicates ();
 	void kthElementToLast (int k);
 };
 #endif

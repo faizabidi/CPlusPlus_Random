@@ -50,45 +50,6 @@ void LinkedList::printList ()
 	std::cout << "NULL\n";
 }
 
-//without using frame buffer
-void LinkedList::removeDuplicates ()
-{
-	//if tree is empty
- 	if (head == NULL || head->next == NULL)
- 	{
- 		std::cout << "Nothing to remove!\n";
- 		return;
- 	}
-
- 	//if tree is not empty
- 	node *current = head;
-
- 	while (current != NULL)
- 	{
- 		node *temp = current;
- 		node *duplicate;
-
- 		while (temp->next != NULL)
- 		{
- 			if (current->data == temp->next->data)
- 			{
- 				duplicate = temp->next;
- 				temp->next = temp->next->next;
- 				delete duplicate;
- 			}
- 			else
-	 			temp = temp->next;
- 		}
- 		current = current->next;
- 	}
-}
-
-/* 
-We could have implemented a hashtable and then removed the removeDuplicates.
-In that case, we would create a new hashtable, and keep adding new elemnets from original list...
-...to the new hashtable.
-*/
-
 void LinkedList::kthElementToLast (int k)
 {
 	//if list is empty
