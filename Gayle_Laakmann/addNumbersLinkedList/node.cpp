@@ -11,6 +11,7 @@ LinkedList::node *LinkedList::createNode (int key)
 	return newNode;
 }
 
+//add node at the end of the list
 void LinkedList::appendNodeBack (const int &key)
 {
 	node *newNode = createNode (key);
