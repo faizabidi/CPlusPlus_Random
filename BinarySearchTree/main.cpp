@@ -4,11 +4,8 @@
 
 int main()
 {
-	//std::vector<string> v = {"zero", "one", "two", "three"};
-
-	//std::vector<int> v = {50, 76};
-	//create an class object
 	int array[16] = {50, 76, 21, 4, 32, 64, 15, 52, 14, 100, 83, 2, 3, 70, 87, 80};
+	
 	BST obj;
 
 	for (int i = 0; i < 16; i++)
@@ -30,6 +27,7 @@ int main()
 
 	obj.RemoveNode (50);
 	obj.PrintInOrder();
+	
 	std::cout<<std::endl;
 	std::cout<<std::endl;
 	

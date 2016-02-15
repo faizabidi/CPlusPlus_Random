@@ -72,7 +72,7 @@ void BST::PrintInOrderPrivate (node *Ptr)
 	//check if tree is empty
 	if (Ptr == NULL)
 	{
-		std::cout<<"Tree is empty!\n";
+		std::cout << "Tree is empty!\n";
 		return;
 	}
 
@@ -83,7 +83,7 @@ void BST::PrintInOrderPrivate (node *Ptr)
 		if (Ptr->left != NULL)
 			PrintInOrderPrivate (Ptr->left);
 		//print root value
-		std::cout<<Ptr->key<<" ";
+		std::cout << Ptr->key<<" ";
 		//check if it is possible to go further right
 		if (Ptr->right != NULL)
 			PrintInOrderPrivate (Ptr->right);
@@ -99,7 +99,7 @@ BST::node *BST::SearchNodePrivate (int key, node *Ptr)
 	//check if tree is empty
 	if (Ptr == NULL)
 	{
-		std::cout<<"Tree is empty!\n";
+		std::cout << "Tree is empty!\n";
 		return NULL;
 	}
 
@@ -126,7 +126,7 @@ void BST::PrintChildren (int key)
 	//if tree is empty
 	if (root == NULL)
 	{
-		std::cout<<"Tree is empty!\n";
+		std::cout << "Tree is empty!\n";
 		return;
 	}
 
@@ -135,14 +135,14 @@ void BST::PrintChildren (int key)
 
 	if (Ptr != NULL)
 	{
-		std::cout<<"Parent node is "<<Ptr->key<<std::endl;
-		Ptr->left == NULL ? std::cout<<"Left child is NULL\n" : std::cout<<"Left child is "<<Ptr->left->key<<std::endl;
-		Ptr->right == NULL ? std::cout<<"Right child is NULL\n" : std::cout<<"Right child is "<<Ptr->right->key<<std::endl;
-		std::cout<<std::endl;
+		std::cout << "Parent node is " << Ptr->key << std::endl;
+		Ptr->left == NULL ? std::cout << "Left child is NULL\n" : std::cout << "Left child is " << Ptr->left->key << std::endl;
+		Ptr->right == NULL ? std::cout << "Right child is NULL\n" : std::cout << "Right child is " << Ptr->right->key << std::endl;
+		std::cout << std::endl;
 		return;
 	}
 	//if key not found
-	std::cout<<key<<" is not in the tree\n";
+	std::cout << key << " is not in the tree\n";
 }
 
 //public function to call private function to find the smallest node
@@ -154,7 +154,7 @@ int BST::SmallestNodePrivate (node *Ptr)
 {
 	if (Ptr == NULL)
 	{
-		std::cout<<"\nTree is empty\n";
+		std::cout << "\nTree is empty\n";
 		return -99999;
 	}
 	//check left pointers recursively
@@ -172,13 +172,13 @@ void BST::RemoveNode (int key) { RemoveNodePrivate (key, root); }
 void BST::RemoveNodePrivate (int key, node *parent)
 {
 	//empty tree
-	if (root == NULL)
+	if (parent == NULL)
 	{
-		std::cout<<"Nothing to delete. Tree is empty!\n";
+		std::cout << "Nothing to delete. Tree is empty!\n";
 		return;
 	}
  
-	if (root != NULL)
+	if (parent != NULL)
 	{
 		if (key == parent->key)
 		{
@@ -200,7 +200,7 @@ void BST::RemoveNodePrivate (int key, node *parent)
 			return;
 		}
 
-		std::cout<<"Node not found in the tree\n";
+		std::cout << "Node not found in the tree\n";
 	}
 }
 
@@ -210,7 +210,7 @@ void BST::RemoveRootMatch()
 	//if tree is empty
 	if  (root == NULL)
 	{
-		std::cout<<"Tree is empty!\n";
+		std::cout << "Tree is empty!\n";
 		return;
 	}
 
@@ -220,6 +220,7 @@ void BST::RemoveRootMatch()
 		node *DeletePtr = root;
 		int rootKey = root->key;
 		int smallest;
+
 		//case when root has no children
 		if (root->left == NULL && root->right == NULL)
 		{
@@ -234,7 +235,7 @@ void BST::RemoveRootMatch()
 			root = root->right;
 			DeletePtr->right = NULL;
 			delete DeletePtr;
-			std::cout<<"Root node "<<rootKey<<" deleted\n";
+			std::cout << "Root node " << rootKey << " deleted\n";
 			return;
 		}
 		
@@ -244,7 +245,7 @@ void BST::RemoveRootMatch()
 			root = root->left;
 			DeletePtr->left = NULL;
 			delete DeletePtr;
-			std::cout<<"Root node "<<rootKey<<" deleted\n";
+			std::cout << "Root node " << rootKey << " deleted\n";
 			return;
 		}
 
@@ -257,7 +258,7 @@ void BST::RemoveRootMatch()
 			RemoveNodePrivate (smallest, root);
 			//replace root key with the smallest node
 			root->key = smallest;
-			std::cout<<"Root node "<<rootKey<<" overwritten by "<<smallest<<std::endl;
+			std::cout << "Root node " << rootKey << " overwritten by " << smallest << std::endl;
 			return;
 		}
 	}
@@ -269,7 +270,7 @@ void BST::RemoveMatch(node *parent, node *match, bool check)
 	//if tree is empty
 	if (root == NULL)
 	{
-		std::cout<<"Tree is empty!\n";
+		std::cout << "Tree is empty!\n";
 		return;
 	}
 
@@ -288,7 +289,7 @@ void BST::RemoveMatch(node *parent, node *match, bool check)
 			check == true ? parent->left = NULL : parent->right = NULL;
 			DeletePtr = match;
 			delete DeletePtr;
-			std::cout<<"Node "<<matchKey<<" deleted\n";
+			std::cout << "Node " << matchKey << " deleted\n";
 			return;
 		}
 
@@ -299,7 +300,7 @@ void BST::RemoveMatch(node *parent, node *match, bool check)
 			match->right = NULL;
 			DeletePtr = match;
 			delete DeletePtr;
-			std::cout<<"Node "<<matchKey<<" deleted\n";
+			std::cout << "Node " << matchKey << " deleted\n";
 			return;
 		}
 	
@@ -310,7 +311,7 @@ void BST::RemoveMatch(node *parent, node *match, bool check)
 			match->left = NULL;
 			DeletePtr = match;
 			delete DeletePtr;
-			std::cout<<"Node "<<matchKey<<" deleted\n";
+			std::cout << "Node " << matchKey << " deleted\n";
 			return;
 		}
 		

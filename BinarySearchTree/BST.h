@@ -2,7 +2,7 @@ class BST
 {
 private:
     
-    //for creating nodes. Each object coult store a key, and will...
+    //for creating nodes. Each object could store a key, and will...
     //...have two pointers
     struct node
     {
@@ -44,13 +44,14 @@ public:
     
     //default constructor
     BST();
+
     //function to call the private AddLeafPrivate function
     void AddLeaf (int key);
     
     //function to call the private PrintInOrderPrivate function
     void PrintInOrder ();
     
-    //return a pointer to a node
+    //return a pointer to a node. It calls the private memner function SearchNodePrivate
     node *SearchNode (int key);
 
     //print children of the nodes with value = key
