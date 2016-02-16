@@ -1,5 +1,5 @@
 /* 
-Time and space complexity is O (n)
+Time and space complexity is O (n).
 */
 
 #include "BST.h"
