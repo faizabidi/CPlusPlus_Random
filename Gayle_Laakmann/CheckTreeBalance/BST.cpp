@@ -1,5 +1,5 @@
 /* 
-Time complexity is O (nxn)
+Time complexity is O (nxn).
 */
 
 #include "BST.h"
