@@ -1,3 +1,8 @@
+/*
+can also solve using DFS but BFS is more effective since DFS may go very deep...
+...while the vertex may be its neighbour
+*/
+
 #include <iostream>
 #include "bfsRoute.cpp"
 
