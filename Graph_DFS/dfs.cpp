@@ -40,5 +40,14 @@ void Graph::DFS (int v)
 		visited[i] = false;
 
 	//call the utility function
-	DFSUtil (v, visited);
+
+	//if the all nodes are not connected, call all vertices like below
+	/*for (int i = 0; i < vertices; i++)
+	{
+		if (visited[i] ==false)
+			DFSUtil (i, visited);
+	}*/
+
+	//if all nodes are connected, just call the utility function
+		DFSUtil (v, visited);
 }
