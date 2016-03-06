@@ -12,14 +12,12 @@ LinkedList::node *LinkedList::createNode (int key)
 
 void LinkedList::appendNodeBack (int key)
 {
-	//std::cout << "NULL";
 	node *newNode = createNode (key);
-	//std::cout << "NULL";
+	
 	//if tree is empty
 	if (head == NULL)
 	{
 		head = newNode;
-		//std::cout << "NULL";
 		return;
 	}
 
@@ -28,9 +26,7 @@ void LinkedList::appendNodeBack (int key)
 	node *temp = head;
 	while (temp->next != NULL)
 		temp = temp->next;
-	//std::cout << "NULL";
-	//std::cout << temp->data << "\n";
-	//std::cout << newNode->data;
+	
 	temp->next = newNode;
 }
 
@@ -70,41 +66,6 @@ void LinkedList::printList ()
 	std::cout << "NULL\n";
 }
 
-LinkedList::node *LinkedList::search (int key)
-{
-	if (head == NULL)
-	{
-		std::cout << "List is empty!\n";
-		return NULL;
-	}
-
-	node *temp = head;
-	node *foundNode;
-
-	while (temp != NULL)
-	{
-		if (temp->data == key)
-		{
-			foundNode = temp;
-			break;
-		}
-		else 
-			temp = temp->next;
-	}
-	return foundNode;
-}
-
-void LinkedList::deleteKey (int key)
-{
-	node *temp = search (key);
-	temp->data = temp->next->data;
-	node *deletePtr = temp->next->next;
-	temp->next = temp->next->next;
-	delete deletePtr;
-
-	printList();
-}
-
 void LinkedList::ArrangeNodesAroundPivot (int key)
 {
 	//if list is empty
@@ -114,29 +75,38 @@ void LinkedList::ArrangeNodesAroundPivot (int key)
 		return;
 	}
 
-	//if list is not empty
+	
 	node *temp = head;
-	//appendNodeBack (99);
-	//printList ();
+	node *last = head;
+	while (last->next != NULL)
+		last = last->next;
+
 	while (temp != NULL)
 	{
-		//appendNodeBack (temp1->data);	
-		if (temp->data <= key)
-		{
-			//std::cout << "test ";
-			appendNodeFront (temp->data);	
-			temp->data = temp->next->data;
-			temp->next = temp->next->next;
-			delete temp->next;
+		node *nextNode = temp->next;
+		//node *duplicate;
+		//node *current = temp;
+		if (temp->data < key)
+		{	
+			temp->next = head;
+			head = temp;
+			//appendNodeFront (temp->data);
+			//temp->data = temp->next->data;
+			//duplicate = temp->next;
+			//temp->next = temp->next->next;
+			//delete duplicate;
 		}
-		/*else if (temp->data > key)
+		else
 		{
-			//std::cout << "test ";
-			appendNodeBack (temp->data);
+			last->next = temp;
+			last = temp;
+			/*appendNodeBack (temp->data);
 			temp->data = temp->next->data;
+			duplicate = temp->next;
 			temp->next = temp->next->next;
-			delete temp->next;
-		}*/
-		temp = temp->next;
+			delete duplicate;*/
+		}
+		temp = nextNode;
 	}
+	last->next = NULL;
 }

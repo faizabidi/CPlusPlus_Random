@@ -35,30 +35,32 @@ void BST::AddLeafPrivate (int key, node *Ptr)
 	//if tree not empty and key is less than the root value
 	if (key <= Ptr->key)
 	{
+		//traverse down the left node since there is another node on the left bottom
 		if (Ptr->left != NULL)
-			//traverse down the left node since there is another node on the left bottom
-			AddLeafPrivate (key, Ptr->left);
-		//when it reaches the last node on the left
-		else
 		{
-			//add the node to the tree
-			Ptr->left = CreateLeaf (key);
+			AddLeafPrivate (key, Ptr->left);
+			return;
 		}
+		//when it reaches the last node on the left
+		//add the node to the tree
+		Ptr->left = CreateLeaf (key);
+		
 		return;
 	}
 	
 	//if key is greater than the root value
 	if (key > Ptr->key)
 	{
+		//traverse down the right node since there is another node on the right bottom
 		if (Ptr->right != NULL)
-			//traverse down the right node since there is another node on the right bottom
-			AddLeafPrivate (key, Ptr->right);
-		//when it reaches the last node on the right
-		else
 		{
-			//add the node to the tree
-			Ptr->right = CreateLeaf (key);
+			AddLeafPrivate (key, Ptr->right);
+			return;
 		}
+		//when it reaches the last node on the right
+		//add the node to the tree
+		Ptr->right = CreateLeaf (key);
+	
 		return;
 	}
 }
@@ -77,17 +79,23 @@ void BST::PrintInOrderPrivate (node *Ptr)
 	}
 
 	//if tree is not empty
-	if (Ptr != NULL)
-	{
-		//check if it is possible to go further left
-		if (Ptr->left != NULL)
-			PrintInOrderPrivate (Ptr->left);
-		//print root value
-		std::cout << Ptr->key<<" ";
-		//check if it is possible to go further right
-		if (Ptr->right != NULL)
-			PrintInOrderPrivate (Ptr->right);
-	}
+	//uncomment the below line for Pre-Order Traversal
+	//std::cout << Ptr->key<<" ";
+		
+	//check if it is possible to go further left
+	if (Ptr->left != NULL)
+		PrintInOrderPrivate (Ptr->left);
+
+		
+	//print root value
+	std::cout << Ptr->key<<" ";
+		
+	//check if it is possible to go further right
+	if (Ptr->right != NULL)
+		PrintInOrderPrivate (Ptr->right);
+		
+	//uncomment the below line while commenting the other two for Post-Order Traversal
+	//std::cout << Ptr->key<<" ";
 }
 
 //search function to call the private serach function
