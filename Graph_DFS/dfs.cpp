@@ -36,7 +36,7 @@ void Graph::DFS (int v)
 {
 	//mark all nodes as not visited
 	bool *visited = new bool[vertices];
-	for (int i = 0; i < v; i++)
+	for (int i = 0; i < vertices; i++)
 		visited[i] = false;
 
 	//call the utility function
