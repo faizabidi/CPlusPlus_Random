@@ -19,7 +19,7 @@ int main ()
 
 	std::cout << std::endl;
 
-	std::cout << "DFS traversal starting with vertex 2\n";
+	std::cout << "DFS traversal starting with vertex 1\n";
 	g.DFS (1);
 
 	std::cout << std::endl;

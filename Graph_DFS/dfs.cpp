@@ -35,7 +35,7 @@ void Graph::DFSUtil (int v, bool visited[])
 void Graph::DFS (int v)
 {
 	//mark all nodes as not visited
-	bool *visited = new bool[v];
+	bool *visited = new bool[vertices];
 	for (int i = 0; i < v; i++)
 		visited[i] = false;
 
