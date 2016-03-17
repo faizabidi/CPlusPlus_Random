@@ -39,7 +39,15 @@ private:
     void RemoveMatch (node *parent, node *match, bool check);
 
     int HeightOfTreePrivate (node *Ptr);
-    
+
+    int leafCountPrivate (node *ptr);
+
+    int numberOfNodesPrivate (node *ptr);
+
+    int sumOfNodesPrivateRecursive (node *ptr);
+
+    int sumOfNodesIterativePrivate (node *ptr);
+
 public:
     
     //default constructor
@@ -63,5 +71,13 @@ public:
     //function to call the private function to remove a root node
     void RemoveNode (int key);
 
+    int leafCount ();
+
+    int numberOfNodes ();
+
     int HeightOfTree ();
+
+    int sumOfNodesRecursive ();
+
+    int sumOfNodesIterative ();
 };

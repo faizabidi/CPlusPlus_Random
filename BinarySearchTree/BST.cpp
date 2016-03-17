@@ -1,4 +1,5 @@
 #include <iostream>
+#include <list>
 #include "BST.h"
 
 //initialize root with NULL
@@ -344,4 +345,80 @@ int BST::HeightOfTreePrivate (node *Ptr)
 	if (Ptr == NULL) { return 0; }
 	else
 		return 1 + std::max (HeightOfTreePrivate (Ptr->left), HeightOfTreePrivate (Ptr->right));
+}
+
+int BST::leafCount () { return leafCountPrivate (root); }
+
+int BST::leafCountPrivate (node *ptr)
+{
+	if (ptr == NULL)
+		return 0;
+	else
+		if (ptr->left == NULL && ptr->right == NULL)
+			return 1;
+	else
+		return leafCountPrivate (ptr->left) + leafCountPrivate (ptr->right);
+}
+
+int BST::numberOfNodes () { return numberOfNodesPrivate (root); }
+
+int BST::numberOfNodesPrivate (node *ptr)
+{
+	if (ptr == NULL)
+		return 0;
+	else
+		return 1 + numberOfNodesPrivate (ptr->left) + numberOfNodesPrivate (ptr->right);
+}
+
+int BST::sumOfNodesRecursive () { return sumOfNodesPrivateRecursive (root); }
+
+int BST::sumOfNodesPrivateRecursive (node *ptr)
+{
+	//check if tree is empty
+	if (ptr == NULL)
+		return 0;
+	else
+		return ptr->key + sumOfNodesPrivateRecursive (ptr->left) + sumOfNodesPrivateRecursive (ptr->right);
+}
+
+int BST::sumOfNodesIterative () { return sumOfNodesIterativePrivate (root); }
+
+int BST::sumOfNodesIterativePrivate (node *ptr)
+{
+	int sum = 0;
+
+	if (ptr == NULL)
+		return 0;
+	
+	else
+	{
+		//create a queue to store nodes
+		std::list <node *> queue;
+
+		//push the first node in queue and mark it as visited
+		queue.push_back (ptr);
+
+		while (!queue.empty ())
+		{
+			//store the front value of the queue
+			node *temp = queue.front ();
+
+			sum = sum + temp->key;
+
+			//for level order traversal, we could uncomment the below line
+			//std::cout << temp->key << " ";
+
+			//remove node from queue
+			queue.pop_front ();
+
+			//store the left children
+			if (temp->left != NULL)
+				queue.push_back (temp->left);
+
+			//store the right children
+			if (temp->right != NULL)
+				queue.push_back (temp->right);
+		}
+	}
+	return sum;
 }

@@ -25,11 +25,21 @@ int main()
 	std::cout<<"Height of tree is: "<<obj.HeightOfTree();
 	std::cout<<std::endl;
 
+	std::cout << "Number of nodes in the tree = " << obj.numberOfNodes ();
+	std::cout<<std::endl;
+
+	std::cout << "Sum of all nodes = " << obj.sumOfNodesRecursive ();
+	std::cout<<std::endl;
+	std::cout << "Sum of all nodes = " << obj.sumOfNodesIterative ();
+	std::cout<<std::endl;
+	
 	obj.RemoveNode (50);
 	obj.PrintInOrder();
 	
 	std::cout<<std::endl;
+
+	std::cout << "Number of leaf nodes in this tree = " << obj.leafCount ();
 	std::cout<<std::endl;
-	
+
 	return 0;
 }
