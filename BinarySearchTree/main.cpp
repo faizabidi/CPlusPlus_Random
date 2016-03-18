@@ -32,6 +32,18 @@ int main()
 	std::cout<<std::endl;
 	std::cout << "Sum of all nodes = " << obj.sumOfNodesIterative ();
 	std::cout<<std::endl;
+
+	std::cout << "Lowest common ancesstor of node 32 and node 3 is " << obj.lowestCommonAncesstor (32, 3);
+	std::cout<<std::endl;
+
+	std::cout << "Lowest common ancesstor of node 4 and node 80 is " << obj.lowestCommonAncesstor (4, 80);
+	std::cout<<std::endl;
+
+	std::cout << "Shortest distnace between node 50 and node 80 is " << obj.distanceBetweenNodes (50, 80);
+	std::cout<<std::endl;
+
+	std::cout << "Shortest distnace between node 4 and node 87 is " << obj.distanceBetweenNodes (4, 87);
+	std::cout<<std::endl;
 	
 	obj.RemoveNode (50);
 	obj.PrintInOrder();

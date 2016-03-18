@@ -48,6 +48,10 @@ private:
 
     int sumOfNodesIterativePrivate (node *ptr);
 
+    node *lowestCommonAncesstorPrivate (node *ptr, int n1, int n2);
+
+    int distanceBetweenNodesPrivate (int n1, int n2);
+
 public:
     
     //default constructor
@@ -80,4 +84,8 @@ public:
     int sumOfNodesRecursive ();
 
     int sumOfNodesIterative ();
+
+    int lowestCommonAncesstor (int n1, int n2);
+
+    int distanceBetweenNodes (int n1, int n2);
 };

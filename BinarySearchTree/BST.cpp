@@ -422,3 +422,62 @@ int BST::sumOfNodesIterativePrivate (node *ptr)
 	}
 	return sum;
 }
+
+int BST::lowestCommonAncesstor (int n1, int n2) { return lowestCommonAncesstorPrivate (root, n1, n2)->key; }
+
+BST::node *BST::lowestCommonAncesstorPrivate (node *ptr, int n1, int n2)
+{
+	if (ptr == NULL)
+	{
+		std::cout << "Tree is empty!\n";
+		return NULL; 
+	}
+
+	//if both nodes are smaller than root, lca lies in the left part of the tree
+	if (n1 < ptr->key && n2 < ptr->key)
+		return lowestCommonAncesstorPrivate (ptr->left, n1, n2);
+	//if both nodes are bigger than root value, lca lies in the right part of the tree 
+	if (n1 > ptr->key && n2 > ptr->key)
+		return lowestCommonAncesstorPrivate (ptr->right, n1, n2);
+	//else, ptr (new root) is the lca
+	else
+		return ptr;
+}
+
+int BST::distanceBetweenNodes (int n1, int n2)
+{
+	node *node1 = SearchNode (n1);
+	node *node2 = SearchNode (n2);
+
+	node *lca = lowestCommonAncesstorPrivate (root, n1, n2);
+
+	int distance = 0;
+
+	//traverse from lca to node1
+	node *temp1 = lca;
+	while (true)
+	{
+		if (node1->key == temp1->key)
+			break;
+		else if (node1->key > temp1->key)
+			temp1 = temp1->right;
+		else
+			temp1 = temp1->left;
+		distance++;
+	}
+
+	//traverse from lca to node2
+	node *temp2 = lca;
+	while (true)
+	{	
+		if (node2->key == temp2->key)
+			break;
+		else if (node2->key > temp2->key)
+			temp2 = temp2->right;
+		else
+			temp2 = temp2->left;
+		distance++;
+	}
+
+	return distance;
+}
