@@ -1,4 +1,6 @@
-/*reverse a null terminated string*/
+/*
+reverse a null terminated string
+*/
 
 #include <iostream>
 
