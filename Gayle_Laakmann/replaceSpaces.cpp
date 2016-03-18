@@ -4,7 +4,6 @@ Replace spaces in a string with "%20"
 
 #include <iostream>
 #include <string>
-#include <vector>
 
 void ReplaceSpaces (std::string str)
 {
