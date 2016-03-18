@@ -1,9 +1,9 @@
-/*check if two strings are permuttion of each other
+/*
+check if two strings are permuttion of each other
 */
 
 #include <iostream>
 #include <algorithm>
-#include <vector>
 
 bool PermutationCheck (std::string &str1, std::string &str2)
 {
