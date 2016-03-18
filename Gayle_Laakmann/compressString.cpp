@@ -14,7 +14,7 @@ void CompressString (std::string str)
 	//store the first letter of the string initially
 	char ch = str[0];
 
-	//run a loop from the second character of the string since first character if stored in "ch"
+	//run a loop from the second character of the string since first character is stored in "ch"
 	for (unsigned int i = 1; i < str.length(); i++)
 	{
 		if (str[i] == ch)
