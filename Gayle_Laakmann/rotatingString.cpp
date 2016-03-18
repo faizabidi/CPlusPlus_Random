@@ -68,6 +68,5 @@ int main()
 	else
 		std::cout << "Substring is NOT a rotation of the main string!\n";
 
-
 	return 0;
 }
