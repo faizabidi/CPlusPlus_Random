@@ -1,89 +1,113 @@
 #include <iostream>
-#include <vector>
 
-class LL
-{
+class LinkedList{
+
 private:
-	struct node
-	{
+	struct node{
 		int data;
 		node *next;
 	}*head;
 
 public:
-	LL ():head(NULL){};
-	node *createNode (int value)
-	{	
+	LinkedList():head(NULL){};
+	
+	node *CreateNode(int data){
 		node *newNode = new node;
-		newNode->data = value;
+		newNode->data = data;
 		newNode->next = NULL;
 		return newNode;
 	}
-	
-	void addNodeEnd (int data)
-	{
-		if (head == NULL)
-			head = createNode (data);
-		else
-		{
-			node *newNode = createNode (data);
-			node *temp = head;
-			while (temp->next != NULL)
-				temp = temp->next;
-			temp->next = newNode;
-		}
-	}
-	
-	void printList ()
-	{
-		if (head == NULL)
+
+    void PrintList(){
+		if(head == NULL)
 			return;
+
 		node *temp = head;
-		while (temp != NULL)
-		{
+		while (temp != NULL){
 			std::cout << temp->data << "-->";
 			temp = temp->next;
 		}
-		std::cout << "NULL\n";
+
+		std::cout << "NULL";
 	}
-	
-	void partition (int value)
-	{
-		node *temp = head;
-		std::vector<int> left;
-		std::vector<int> right;
-		while (temp != NULL)
-		{
-			if (temp->data > value)
-				right.push_back (temp->data);
-			else if (temp->data < value)
-				left.push_back (temp->data);
-			temp = temp->next;
+
+	void AddNode(int data){
+		if(head == NULL){
+			head = CreateNode(data);
+			return;
 		}
-		LL obj2;
-		for (int i = 0; i < left.size (); i++)
-			obj2.addNodeEnd (left.at(i));
-		obj2.addNodeEnd (value);
-		for (int i = 0; i < right.size (); i++)
-			obj2.addNodeEnd (right.at(i));
-		obj2.printList ();
+
+		node *newNode = CreateNode(data);
+		node *temp = head;
+
+		while(temp->next != NULL)
+			temp = temp->next;
+		
+		temp->next = newNode;
+	}
+
+	void Partition(int value){
+		if(head == NULL)
+			return;
+
+		// Go to the end of the list
+		node *temp = head;
+		while(temp->next != NULL)
+			temp = temp->next;
+
+        // Go to the position of the pivot
+        node *pivot = head;
+        while(pivot->next != NULL){
+            if(pivot->data == value)
+                break;
+            else
+                pivot = pivot->next;
+        }
+
+     	// Swap the last element with the pivot
+        std::swap(pivot->data, temp->data);
+
+        node *i = head;
+        node *j = head;
+
+        while(j->next != NULL){
+            if(j->data <= temp->data){
+                std::swap(j->data, i->data);
+                i = i->next;
+            }
+            j = j->next;
+        }
+
+        // Swap the pivot to its correct location
+        std::swap(i->data, temp->data);
 	}
 };
 
-int main ()
-{
-	LL obj1;
-	obj1.addNodeEnd (1);
-	obj1.addNodeEnd (3);
-	obj1.addNodeEnd (2);
-	obj1.addNodeEnd (5);
-	obj1.addNodeEnd (4);
-	obj1.addNodeEnd (4);
-	obj1.addNodeEnd (8);
+int main()
+{	
+	LinkedList obj1;
+	int pivot;
 
-	obj1.printList ();
-	
-	obj1.partition (3);
+	obj1.AddNode(5);
+	obj1.AddNode(8);
+	obj1.AddNode(1);
+	obj1.AddNode(0);
+	obj1.AddNode(3);
+	obj1.AddNode(6);
+	obj1.AddNode(1);
+	obj1.AddNode(789);
+	obj1.AddNode(54);
+	obj1.AddNode(-78);
+
+	obj1.PrintList();
+    std::cout << std::endl;
+
+	std::cout << "Enter pivot:";
+    std::cin >> pivot;
+
+	obj1.Partition(pivot);
+	obj1.PrintList();
+	std::cout << std::endl;
 
 	return 0;
 }
