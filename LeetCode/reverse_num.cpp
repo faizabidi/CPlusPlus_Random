@@ -4,6 +4,7 @@
 
 class Solution{
 public:
+    
     int reverse(int x){
     	// Convert int to string
     	std::string str = std::to_string(x);
@@ -36,7 +37,16 @@ public:
     	if(str[0] == '-')
     		rev_num_int = rev_num_int * -1;
     	return rev_num_int;
-	}		
+	}	
+
+	int reverse2(int x){
+		long rev_num = 0;
+		while(x){
+			rev_num = rev_num * 10 + x % 10;
+			x = x / 10;
+		}
+		return (rev_num > INT_MAX || rev_num < INT_MIN) ? 0 : rev_num;
+	}
 };
 
 int main(){
@@ -46,7 +56,7 @@ int main(){
 	std::cout << "Enter a number:";
 	std::cin >> num;
 
-	std::cout << obj1.reverse(num) << std::endl;
+	std::cout << obj1.reverse2(num) << std::endl;
 
 	return 0;
 }
