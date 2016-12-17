@@ -12,16 +12,17 @@ public:
     	std::vector<std::string> array(numRows);
 
     	// Base condition when everything in the same row
-    	if(numRows == 1)
+    	if(s.size() <= numRows || numRows == 1)
     		return str;
 
     	bool down;
     	int row;
+    	int length = str.size();
     	
     	// New string to store everything
     	std::string newStr;
     	
-    	for(int i = 0; i < str.size(); i++){
+    	for(int i = 0; i < length; i++){
     		array[row].push_back(str[i]);
     		if(row == 0)
     			down = true;
