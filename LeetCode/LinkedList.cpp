@@ -25,7 +25,7 @@ public:
 			return head;
 		}
 		Node *temp = head;
-        // Go to the end
+        // Go to the endexception
 		while(temp->next != NULL)
 			temp = temp->next;
 		temp->next = newNode;
@@ -49,7 +49,7 @@ int main()
 	Solution mylist;
 	int T,data;
 	cin>>T;
-	while(T-->0){
+	while(T-- > 0){
 		cin>>data;
 		head=mylist.insert(head,data);
 	}	
