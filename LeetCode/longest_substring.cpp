@@ -54,6 +54,7 @@ public:
     	return len;
     }
 
+    // Using hashmap
     int lengthOfLongestSubstring3(std::string str){
         std::unordered_map<char, bool> hash;
         int len_max = 0;

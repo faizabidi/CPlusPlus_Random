@@ -9,7 +9,7 @@ public:
     std::vector<int> twoSum_Hash(std::vector<int> &nums, int target){
         std::vector<int> indices;
         std::unordered_map<int, int> hash;
-        //unordered_map<int, int> hash;
+        
         for(int i = 0; i < nums.size(); i++){
             int numToFind = target - nums[i];
             std::cout << "Number to find is " << numToFind << std::endl;
