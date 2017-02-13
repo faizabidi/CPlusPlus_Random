@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 
-
 // O(nxn)
 std::vector<int> array_left_rotation2(std::vector<int> a, int n, int k){
     

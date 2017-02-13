@@ -1,5 +1,4 @@
-// https://leetcode.com/problems/path-sum/
-
+// https://leetcode.com/problems/path-sum-ii/
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -11,41 +10,27 @@
  */
 class Solution {
 public:
-    // Non-recursive solution
-    bool hasPathSum(TreeNode* root, int sum){
-        if(root == NULL)
-            return false;
-        // Non-recursive solution
-        std::queue<TreeNode *> q;
-        std::queue<int> values;
-        q.push(root);
-        values.push(root->val);
-        while(!q.empty()){
-            int sum_needed = values.front();
-            TreeNode *curr = q.front();
-            values.pop();
-            q.pop();
-            if(sum_needed == sum && !curr->left && !curr->right)
-                return true;
-            if(curr->left){
-                q.push(curr->left);
-                values.push(sum_needed + curr->left->val);
-            }
-            if(curr->right){
-                q.push(curr->right);
-                values.push(sum_needed + curr->right->val);
-            }
-        }
-        return false;
+    
+    vector<vector<int>> pathSum(TreeNode* root, int sum){
+        std::vector<std::vector<int>> result;
+        std::vector<int> path;
+        pathSumHelper(root, sum, path, result);
+        return result;
     }
-    // Recursive solution
-    bool hasPathSum(TreeNode* root, int sum){
-        if(!root)
-            return false;
-        int sum_needed = sum - root->val;
-        if(sum_needed == 0 && !root->left && !root->right)
-            return true;
-        return (hasPathSum(root->left, sum_needed) || 
-                hasPathSum(root->right, sum_needed));
+    void pathSumHelper(TreeNode *temp, int sum, std::vector<int> path, 
+                            std::vector<std::vector<int>> &result){
+        if(!temp)
+            return;
+        path.push_back(temp->val);
+        // Found
+        if(!temp->left && !temp->right && temp->val == sum){
+            result.push_back(path);
+            return;
+        }
+        // If left exists
+        if(temp->left)
+           pathSumHelper(temp->left, sum - temp->val, path, result);
+        if(temp->right)
+           pathSumHelper(temp->right, sum - temp->val, path, result);
     }
 };

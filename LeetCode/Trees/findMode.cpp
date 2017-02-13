@@ -31,10 +31,10 @@ public:
         std::map<int, int>::iterator it;
         int max = 0;
         // Find the max key
-        for (it = hash.begin(); it != hash.end(); it++ )
+        for(it = hash.begin(); it != hash.end(); it++)
             max = std::max(max, it->second);
         // Find all values with max key value
-        for (it = hash.begin(); it != hash.end(); it++ ){
+        for(it = hash.begin(); it != hash.end(); it++ ){
             if(it->second == max)
                 mode.push_back(it->first);
         }

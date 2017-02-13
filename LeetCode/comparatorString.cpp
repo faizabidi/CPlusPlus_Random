@@ -18,7 +18,6 @@ bool compare(Player p1, Player p2){
 }
 
 std::vector<Player> comparator(std::vector<Player> players){
-    
     // The third parameter in the sort function is an operator called "compare"
     std::sort(players.begin(), players.end(), compare);
     return players;
