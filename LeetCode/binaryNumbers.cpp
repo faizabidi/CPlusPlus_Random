@@ -1,7 +1,6 @@
 // https://www.hackerrank.com/challenges/30-binary-numbers
 #include <iostream>
 #include <algorithm>
-#include <map>
 
 int countConsecutiveOnes(int n){
 	std::string binaryNumber;

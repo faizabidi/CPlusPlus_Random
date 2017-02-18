@@ -15,7 +15,7 @@ public:
     vector<string> binaryTreePaths(TreeNode* root){
         std::vector<std::string> allPaths;
         if(!root)
-            return allPaths;
+            return allPaths; 
         helper(root, std::to_string(root->val), allPaths);
         return allPaths;
     }
@@ -35,14 +35,21 @@ public:
             return allPaths;
         std::queue<TreeNode *> q;
         std::queue<std::string> tempPaths;
+        
         q.push(root);
         tempPaths.push(std::to_string(root->val));
+
         while(!q.empty()){
-            TreeNode *temp = q.front(); q.pop();
-            std::string node_value = tempPaths.front(); tempPaths.pop(); 
+            TreeNode *temp = q.front(); 
+            q.pop();
+
+            std::string node_value = tempPaths.front(); 
+            tempPaths.pop(); 
+            
             // If both left and right are empty
             if(!temp->left && !temp->right)
                 allPaths.push_back(node_value);
+            
             // If left exists
             if(temp->left){
                 q.push(temp->left);
