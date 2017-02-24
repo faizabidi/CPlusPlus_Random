@@ -10,7 +10,7 @@ struct Player{
 
 // Refer: http://stackoverflow.com/questions/14081335/algorithm-vector-sort-with-objects
 bool compare(Player p1, Player p2){
-   // Sort forst by score
+   // Sort first by score
    if (p1.score != p2.score) 
        return (p1.score > p2.score);
    // If scores are same, sort by name

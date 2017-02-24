@@ -10,6 +10,8 @@
  */
 class Solution {
 public:
+
+    // Recursive
     bool isValidBST(TreeNode *root){
         return isValidBST_Helper(root, LONG_MIN, LONG_MAX);
     }
@@ -24,5 +26,30 @@ public:
                         && isValidBST_Helper(root->right, root->val, max);
         }
         return false;
+    }
+
+    // Iterative
+    // Do an in-order traversal
+    // If array is sorted, it is a BST
+    vector<int> inOrder(Node *root, vector<int> &array){
+        if(!root)
+            return array;
+        if(root->left)
+           inOrder(root->left, array);
+        array.push_back(root->data);
+        if(root->right)
+           inOrder(root->right, array);
+        return array;
+    }
+
+    bool checkBST(Node* root){
+        vector<int> array;;
+        array = inOrder(root, array);
+        
+        for(int i = 0; i < array.size() - 1; i++){
+            if(array[i] >= array[i + 1])
+                return false;
+        }
+        return true;
     }
 };
