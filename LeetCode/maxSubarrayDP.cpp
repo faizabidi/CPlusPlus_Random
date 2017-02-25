@@ -53,6 +53,20 @@ int maxSubArray2(std::vector<int> array){
 	return ans;
 }
 
+// Using dynamic programming
+int maxSubArray3(std::vector<int> array){
+	if(array.size() == 1)
+		return array[0];
+	std::vector<int> dp_array;
+	dp_array.push_back(array[0]);
+	int sum = dp_array[0];
+	for(int i = 1; i < array.size(); i++){
+		dp_array.push_back(std::max(dp_array[i - 1] + array[i], array[i]));
+		sum = std::max(sum, dp_array[i]);
+	}
+	return sum;
+}
+
 int main(){
 	int n;
 	std::cin >> n;
@@ -61,7 +75,7 @@ int main(){
 	for(int i = 0; i < n; i++)
 		std::cin >> array[i];
 
-	std::cout << maxSubArray2(array);
+	std::cout << maxSubArray3(array);
 
 	return 0;
 }
