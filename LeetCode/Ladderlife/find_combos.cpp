@@ -14,7 +14,6 @@ void find_combos(int num_desired, std::vector<int> array){
 			}
 		}
 	}
-
 	// If num_desired can be formed with the packs available
 	if(flag){
 		for(int i = 0; i < num_desired; i++)
@@ -43,7 +42,6 @@ int main(){
         avail_packs.push_back(std::stoi(buf));
 
     find_combos(num_desired, avail_packs);
-    
 
 	return 0;
 }
