@@ -1,91 +1,129 @@
-#include <iostream>
+// https://www.hackerrank.com/challenges/swap-nodes-algo
 
-class Trees{
+#include <iostream>
+#include <queue>
+#include <cstdlib>
+
+class tree{
 private:
-	struct Node{
+	struct node{
+		node *left;
+		node *right;
 		int data;
-		Node *left;
-		Node *right;
 	}*root;
-	// Create a leaf node
-	Node *createLeaf(int val){
-		Node *newNode = new Node;
-		newNode->data = val;
+
+	node *createLeaf(int val){
+		node *newNode = new node;
 		newNode->left = newNode->right = NULL;
-		return newNode; 
-	}	
-	// Recursive helper function for insertion
-	void insert_recursive_private(Node *ptr, int val){
-		if(!ptr){
+		newNode->data = val;
+		return newNode;
+	}
+
+	void addLeafPrivate(node *temp, int val){
+		if(!temp){
 			root = createLeaf(val);
 			return;
 		}
-		if(val <= ptr->data){
-			if(ptr->left)
-				insert_recursive_private(ptr->left, val);
-			else
-				ptr->left = createLeaf(val);
+		// Do a bfs = level order traversal
+		std::queue<node *> q;
+		q.push(root);
+		while(!q.empty()){
+			node *temp = q.front();
+			q.pop();
+
+			if(!temp->left){
+				temp->left = createLeaf(val);
+				return;
+			}
+
+			if(!temp->right){
+				temp->right = createLeaf(val);
+				return;
+			}
+			
+			// Else, add both to the queue
+			// -1 means NULL
+			if(temp->left->data != -1)
+				q.push(temp->left);
+			if(temp->right->data != -1)
+				q.push(temp->right);
 		}
-		else{
-			if(ptr->right)
-				insert_recursive_private(ptr->right, val);
-			else
-				ptr->right = createLeaf(val);
-		}
+
 	}
-	// In-order using recursion
-	void print_recursive_private(Node *ptr){
-		if(!ptr)
+
+	void inOrderPrintPrivate(node *temp){
+		if(!temp)
 			return;
-		if(ptr->left)
-			print_recursive_private(ptr->left);
-		std::cout << ptr->data;
-		if(ptr->right)
-			print_recursive_private(ptr->right);
+		inOrderPrintPrivate(temp->left);
+		// -1 means NULL
+		if(temp->data != -1)
+			std::cout << temp->data << " ";
+		inOrderPrintPrivate(temp->right);
 	}
+
+	int getHeightPrivate(node *temp){
+		if(!temp)
+			return 0;
+		return 1 + std::max(getHeightPrivate(temp->left), getHeightPrivate(temp->right));
+	}
+
+	bool searchPrivate(node *temp, int key){
+		if(temp->data == key){
+			std::cout << "Found\n";
+			return true;
+		}
+		if(temp->left){
+			if(searchPrivate(temp->left, key)){
+				std::cout << "Checking left " << temp->left->data << std::endl;
+				return true;
+			}
+		}
+		if(temp->right){
+			if(searchPrivate(temp->right, key)){
+				std::cout << "Checking right " << temp->right->data << std::endl;
+				return true;
+			}
+		}
+		return false;
+	}
+
+    node *smallest(node *temp){
+    	// Smallest is the left most element
+		while(temp->left)
+		    temp = temp->left;
+		return temp;
+    }
 
 public:
-	Trees(){ root = NULL; };
-	// Iterative insertion
-	void insert_iterative(int data){
-		// Tree is empty
-		if(!root)
-			root = createLeaf(data);
-		Node *curr = root;
-		Node *parent = NULL;
-		while(true){
-			parent = curr;
-			if(data <= curr->data){
-				curr = curr->left;
-				if(!curr){
-					parent->left = createLeaf(data);
-					return;
-				}
-			}
-			else{
-				curr = curr->right;
-				if(!curr){
-					parent->right = createLeaf(data);
-					return;
-				}
-			}
-		}
+	tree(){
+		root = NULL;
 	}
-	// Recusive insertion function calling its wrapper
-	void insert_recursive(int val){
-		insert_recursive_private(root, val);
+	void addLeaf(int val){
+		addLeafPrivate(root, val);
 	}
-
-	void print_recursive(){
-		print_recursive_private(root);
+	void inOrderPrint(){
+		inOrderPrintPrivate(root);
+	}
+	int getHeight(){
+		return getHeightPrivate(root);
+	}
+	bool search(int key){
+		return searchPrivate(root, key);
 	}
 };
 
 int main(){
-	Trees obj1;
-	obj1.insert_recursive(2);
-	obj1.insert_iterative(3);
-
-
+	tree obj1;
+	obj1.addLeaf(1);
+	obj1.addLeaf(2);
+	obj1.addLeaf(3);
+	obj1.addLeaf(4);
+	obj1.addLeaf(5);
+	obj1.addLeaf(6);
+	obj1.addLeaf(7);
+	obj1.inOrderPrint();
+	std::cout << std::endl;
+	if(obj1.search(78))
+		std::cout << "8 is in the tree\n";
 	return 0;
 }
