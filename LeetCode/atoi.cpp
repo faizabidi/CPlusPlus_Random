@@ -6,66 +6,56 @@
 class Solution {
 public:
     int myAtoi(std::string str){
-    	int num = 0;
-    	std::vector<int> array;
-    	bool negative = false;
-    	bool positive = false;
-    	int i = 0;
+        // Check if empty string
+        if(str.size() == 0)
+            return 0;
+            
+        // Check if string starts with empty spaces
+        int i = 0;
+        while(str[i] == ' ')
+            i++;
+            
+        // Check if the string starts with an alphabet other than + or -
+        // 48 => 0; 57 => 9
+        if( (int(str[i]) < 48 || int(str[i]) > 57) && str[i] != '+' && str[i] != '-')
+            return 0;
+        
+        // Check if the first character is a '+'' or a '-''
+        bool positive = false, negative = false;
+        
+        if(str[i] == '+'){
+            std::cout << "Positive number\n";
+            positive = true;
+            i++;
+        }
+        else if(str[i] == '-'){
+            std::cout << "Negative number\n";
+            negative = true;
+            i++;
+        }
+        
+        // Else, parse the string. Stop if an alphabet is encountered
+        std::string temp;
+        while(int(str[i]) >= 48 && int(str[i]) <= 57 && i < str.size()){
+            temp += str[i];
+            i++;
+        }
 
-    	// Find the first non-space character
-    	while(str[i] == ' ')
-    		i++;
-    	
-    	// Check if a minus sign is NOT followed by a digit
-    	if( (str[i] == '-') && (int(str[i+1]) < 48 && int(str[i+1]) > 57) )
-    		return 0;
-    	// Check if a plus sign is NOT followed by a digit
-    	if( (str[i] == '+') && (int(str[i+1]) < 48 && int(str[i+1]) > 57) )
-    		return 0;
-
-    	// If a minus sign is followed by a digit
-    	if((str[i] == '-') && (int(str[i+1]) >= 48 && int(str[i+1]) <= 57) ){
-    		negative = true;
-    		int j = i + 1;
-    		while( (int(str[j]) >= 48) && (int(str[j]) <= 57) ){
-    			array.push_back(int(str[j]) - 48);
-    			j++;
-    		}
-    	}
-
-    	// If a plus sign is followed by a digit
-    	if(str[i] == '+' && (int(str[i+1]) >= 48 && int(str[i+1]) <= 57)){
-    		std::cout << "Found!";
-    		positive = true;
-    		int j = i + 1;
-    		while( (int(str[j]) >= 48) && (int(str[j]) <= 57) ){
-    			array.push_back(int(str[j]) - 48);
-    			j++;
-    		}
-    	}
-
-    	// If no minus or plus signs
-    	if( (int(str[i]) >= 48 && int(str[i]) <= 57) ){
-    		while( (int(str[i]) >= 48) && (int(str[i]) <= 57) ){
-    			array.push_back(int(str[i]) - 48);
-    			i++;
-    		}
-    	}
-
-    	int array_length = array.size();
-    	for(int i = 0; i < array_length; i++)
-    		num = num + pow(10, (array_length - 1 - i)) * array[i];
-
-    	if(num > INT_MAX)
-    		return 2147483647;
-
-    	if(num < INT_MIN)
-    		return -2147483648;
-
-    	if(negative)
-    		return -num;
-
-    	return num;
+        long ans = 0;
+        long tens = 1;
+        for(int j = temp.size() - 1; j >= 0; j--){
+            ans += (int(temp[j]) - 48) * tens;
+            tens *= 10;
+            if(ans > INT_MAX)
+                break;
+        }
+        if(negative)
+            ans = ans * -1;
+        if(ans > INT_MAX)
+            ans = INT_MAX;
+        if(ans < INT_MIN)
+            ans = INT_MIN;
+        return ans;
     }
 };
 
