@@ -16,7 +16,7 @@ int main(){
 	// Print it
 	std::map<std::pair<int, int>, int>::iterator it;
 	for(it = hashmap.begin(); it != hashmap.end(); it++)
-		std::cout << it->second << " ";
+		std::cout << it->first.first << it->second << " ";
 
 	return 0;
 }

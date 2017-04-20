@@ -1,85 +1,110 @@
 #include <iostream>
+#include <cmath>
 
-std::string add(std::string binary1, std::string binary2){
-	std::string binary1_new, binary2_new, result;
-	int size1 = binary1.size();
-	int size2 = binary2.size();
-
-	if(size1 > size2){
-		int diff = size1 - size2;
-		while(diff > 0){
-			binary2_new += '0';
-			diff--;
-		}
-		binary2_new += binary2;
-		// Save it in the original string
-		binary2 = binary2_new;
-	}
-	else if(size2 > size1){
-		int diff = size2 - size1;
-		while(diff > 0){
-			binary1_new += '0';
-			diff--;
-		}
-		binary1_new += binary1;
-		// Save it in the original string
-		binary1 = binary1_new;
-	}
-
-	char carry;
-	
-	for(int i = binary1.size() - 1; i >= 0; i--){
-		if( (binary1[i] == '0' && binary2[i] == '1') || 
-			(binary1[i] == '1' && binary2[i] == '0') ){
-			if(carry == '1'){
-				result += '0';
-				carry = '1';
-			}
-			else{
-				result += '1';
-				carry = '0';
-			}
-		}
-		else if(binary1[i] == '0' && binary2[i] == '0'){
-			if(carry == '1'){
-				result += '1';
-				carry = '0';
-			}
-			else{
-				result += '0';
-				carry = '0';
-			}
-		}
-		else{
-			if(carry == '1'){
-				result += '1';
-				carry = '1';
-			}
-			else{
-				result += '0';
-				carry = '1';
-			}
-		}
-	}
-	std::reverse(result.begin(), result.end());
-	std::string temp;
-	if(carry == '1')
-		temp += '1';
-	temp += result;
-	result = temp;
-	return result;
-}
+class Solution {
+public:
+    int getSum(int a, int b) {
+        std:: string binary_a = convert2Binary(a);
+        std:: string binary_b = convert2Binary(b);
+        makeSizeEqual(binary_a, binary_b);
+        std::string sum = addBinary(binary_a, binary_b);
+        int ans = convert2Decimal(sum);
+        return ans;
+    }
+    int getSum(int a, int b){
+        std:: string binary_a = convert2Binary(a);
+        std:: string binary_b = convert2Binary(b);
+        makeSizeEqual(binary_a, binary_b);
+        std::string sum;
+        for(int i = binary_a.size() - 1; i >= 0; i--){
+            sum += binary_a ^ binary_b;
+        }
+    }
+private:
+    std::string convert2Binary(int a){
+        std::string ans;
+        while(a > 0){
+            //std::cout << a % 2;
+            ans += std::to_string(a % 2);
+            a = a / 2;
+        }
+        std::reverse(ans.begin(), ans.end());
+        return ans;
+    }
+    void makeSizeEqual(std::string &x_binary, std::string &y_binary){
+        if(x_binary.size() > y_binary.size()){
+            std::string y_binary_new;
+            int size_diff = x_binary.size() - y_binary.size();
+            
+            for(int i = 0; i < size_diff; i++)
+                y_binary_new += '0';
+            y_binary_new += y_binary;
+            y_binary = y_binary_new;
+        }
+        else if(y_binary.size() > x_binary.size()){
+            std::string x_binary_new;
+            int size_diff = y_binary.size() - x_binary.size();
+            
+            for(int i = 0; i < size_diff; i++)
+                x_binary_new += '0';
+            x_binary_new += x_binary;
+            x_binary = x_binary_new;
+        }
+    }
+    std::string addBinary(std::string a, std::string b){
+        std::string sum;
+        char carry = '0';
+        for(int i = a.size() - 1; i >= 0; i--){
+            if(a[i] == '1' && b[i] == '1'){
+                if(carry == '1')
+                    sum += '1';
+                else
+                    sum += '0';
+                carry = '1';
+            }
+            else if((a[i] == '1' && b[i] == '0') || (a[i] == '0' && b[i] == '1')){
+                if(carry == '1'){
+                    sum += '0';
+                    carry = '1';
+                }
+                else{
+                    sum += '1';
+                    carry = '0';
+                }
+            }
+            else if(a[i] == '0' && b[i] == '0'){
+                if(carry == '1'){
+                    sum += '1';
+                    carry = '0';
+                }
+                else
+                    sum += '0';
+            }
+        }
+        if(carry == '1')
+            sum += carry;
+        std::reverse(sum.begin(), sum.end());
+        return sum;
+    }
+    int convert2Decimal(std::string binary){
+        int sum = 0;
+        int size = binary.size() - 1;
+        for(int i = 0; i < binary.size(); i++){
+            if(binary[i] == '1')
+                sum += pow(2, size);
+            size--;
+        }
+        return sum;
+    }
+};
 
 int main(){
-	std::string binary1, binary2;
-	
-	std::cout << "Enter the first binary number:";
-	std::cin >> binary1;
+    std::cout << "Enter two numbers:\n";
+    int a, b;
+    std::cin >> a >> b;
+    Solution obj1;
+    int sum = obj1.getSum(a, b);
+    std::cout << sum << std::endl;
 
-	std::cout << "Enter the second binary number:";
-	std::cin >> binary2;
-
-	std::cout << add(binary1, binary2) << std::endl;
-
-	return 0;
+    return 0;
 }
