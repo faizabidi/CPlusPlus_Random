@@ -5,6 +5,8 @@
 
 class Solution{
 public:
+
+    // Iterative
     int climbStairs(int n){
     	int first = 0;
     	int second = 1;
@@ -17,6 +19,17 @@ public:
     	}
     	return third;
     }
+
+    // Recursive
+    int climbStairs2(int n){
+        if(n == 0)
+            return 0;
+        if(n == 1)
+            return 1;
+        if(n == 2)
+            return 2;
+        return climbStairs(n - 1) + climbStairs(n - 2);
+    }
 };
 
 int main(){
@@ -25,7 +38,7 @@ int main(){
 	std::cout << "Enter number of stairs: ";
 	std::cin >> num_stairs;
 
-	std::cout << obj1.climbStairs(num_stairs);
+	std::cout << obj1.climbStairs2(num_stairs);
 
 	return 0;
 }
