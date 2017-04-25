@@ -16,6 +16,7 @@ int ways(std::vector<int> array, int n, int sum){
 }
 
 // TODO: Dynamic programming
+// https://goo.gl/r9XhDY
 
 int main(){
 	int n;

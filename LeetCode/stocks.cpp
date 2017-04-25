@@ -5,6 +5,7 @@
 
 class Solution{
 public:
+    // n x n solution
     int maxProfit_n2(std::vector<int> &prices){
         size_t length = prices.size() - 1;
         int max = 0;
@@ -32,6 +33,21 @@ public:
         		max = prices[i] - min;
         }
         return max;
+    }
+
+    // Another optimized solution
+    // REF: https://helloacm.com/cc-coding-exercise-best-time-to-buy-and-sell-stock/
+    int maxProfit_n2(std::vector<int> &prices){
+        int ans = 0;
+        int tempProfit = 0;
+        for(int i = 1; i < prices.size(); i++){
+            tempProfit += prices[i] - prices[i - 1];
+            if(tempProfit < 0)
+                tempProfit = 0;
+            if(tempProfit > ans)
+                ans = tempProfit;
+        }
+        return ans;
     }
 };
 
