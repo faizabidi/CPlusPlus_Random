@@ -1,4 +1,7 @@
 // https://www.hackerrank.com/challenges/quicksort2
+// Worst case: O(n*n)
+// Best case: O(nLogn)
+// Sorting In Place: Yes
 
 #include <vector>
 #include <iostream>

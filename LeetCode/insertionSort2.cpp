@@ -15,11 +15,13 @@ void printVector(std::vector<int> array){
 }
 
 void insertionSort(std::vector<int> array){
+	int shifts = 0;
 	for(int i = 1; i < array.size(); i++){
 		if(array[i] < array[i - 1]){
 			std::cout << "Found a smaller!\n";
 			int j = i;
 			while(array[i] < array[i - 1] && i >= 0){
+				shifts++;
 				std::swap(array[i], array[i - 1]);
 				i--;
 			}
@@ -27,6 +29,7 @@ void insertionSort(std::vector<int> array){
 		}
 		printVector(array);
 	}
+	std::cout << "Totals shifts = " << shifts << std::endl;
 }
 
 int main(){
