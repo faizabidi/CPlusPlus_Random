@@ -11,6 +11,7 @@ int main(){
 	// str will store the entire contents of the file 
 	// If there is a newline, it will treat that as a space
 	std::cout << str << std::endl;
+	str = str.split(',');
 	std::cout << str.size();
 
 	return 0;
