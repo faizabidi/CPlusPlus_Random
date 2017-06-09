@@ -1,3 +1,9 @@
+// https://www.hackerrank.com/challenges/quicksort3
+// Worst-case - O(n*n)
+// Best-case - O(n log n) 
+// Average - O(n log n) 
+// In-place sorting
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
