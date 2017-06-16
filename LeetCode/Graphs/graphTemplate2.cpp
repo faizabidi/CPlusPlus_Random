@@ -9,6 +9,7 @@ public:
 		vertices = v;
 		adjList.resize(vertices);
 	}
+
 	void addEdge(int v, int w){
 		adjList[v].push_back(w);
 	}
@@ -31,6 +32,7 @@ public:
 private:
 	int vertices;
 	std::vector<std::list<int> > adjList;
+
 	void DFS_helper(int vertex, std::vector<bool> visited){
 		if(!visited[vertex]){
 			// Print it and mark it as visited
@@ -43,6 +45,7 @@ private:
 				DFS_helper(*it, visited);
 		}
 	}
+
 	void BFS_helper(int v, std::vector<bool> visited){
 		std::queue<int> q;
 		q.push(v);
@@ -85,6 +88,24 @@ int main(){
 	std::cout << std::endl;
 	obj1.BFS_print(start_vertex);
 
+/* Sample run
+// http://cseweb.ucsd.edu/~kube/cls/100/Lectures/lec12/lec12-23.html
+
+Enter vertices:11
+Enter the graph (e.g. 2, 3):0 1
+1 3
+1 4
+2 0
+2 5
+3 2
+3 5
+3 6
+4 1
+4 6
+6 5
+Enter the starting vertex to show the graph:0
+0 1 3 2 5 5 6 5 4 6 5 
+0 1 3 4 2 5 6 */
 
 	return 0;
 }
