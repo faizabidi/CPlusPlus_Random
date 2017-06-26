@@ -50,7 +50,6 @@ public:
     			// Push the vector
     			ans.push_back(ans[j]);
     			// Push the number
-    			std::vector<int> temp = ans.back();
     			ans.back().push_back(nums[i]);
     		}
     	}
@@ -59,7 +58,7 @@ public:
 };
 
 int main(){
-	std::vector<int> nums = {1,2,3};
+	std::vector<int> nums = {1,2,1};
 
 	Solution obj1;
 	std::vector<std::vector<int>> subsets = obj1.subsets2(nums);
