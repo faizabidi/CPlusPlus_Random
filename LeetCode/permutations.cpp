@@ -1,7 +1,7 @@
+// REF: https://stackoverflow.com/questions/361/generate-list-of-all-possible-permutations-of-a-string
+
 #include <iostream>
 #include <vector>
-#include <queue>
-#include <sstream>
 
 void backtracking_permutations(std::string str, int start_index, int size){
     std::cout << "Running f(" << str << "," << start_index << "," 
