@@ -1,72 +1,41 @@
-#include <map>
-#include <set>
-#include <list>
-#include <cmath>
-#include <ctime>
-#include <deque>
-#include <queue>
-#include <stack>
-#include <string>
-#include <bitset>
-#include <cstdio>
-#include <limits>
-#include <vector>
-#include <climits>
-#include <cstring>
-#include <cstdlib>
-#include <fstream>
-#include <numeric>
-#include <sstream>
 #include <iostream>
-#include <algorithm>
-#include <unordered_map>
+#include <vector>
+#include <queue>
+#include <sstream>
 
-using namespace std;
-
-std::vector<std::string> getPermutation(std::string &str){
-    std::vector<std::string> permutations;
-    do{
-        permutations.push_back(str);
-    }while(std::next_permutation(str.begin(),str.end()));
-    return permutations;
-}
-
-std::vector<std::string> checkDivisibility(std::vector<std::string> arr){
-    std::vector<std::string> result;
-    for(int i = 0; i < arr.size(); i++){
-        std::vector<std::string> values = getPermutation(arr[i]);
-        int flag = 0;
-        for(int j = 0; j < values.size(); j++){
-            if(std::stoi(values[j]) % 8 == 0)
-               flag = 1;
+void backtracking_permutations(std::string str, int start_index, int size){
+    std::cout << "Running f(" << str << "," << start_index << "," 
+        << size << ") *********************************" << std::endl;
+    
+    if(start_index == size - 1){
+        std::cout << "Ans is " << str << std::endl;
+        std::cout << "f(" << str << "," << start_index << "," 
+        << size << ") completed!\n";
+    }
+    else{
+        for(int i = start_index; i < size; i++){
+            std::cout << "i = " << i << " to " << size - 1 << std::endl;
+            std::cout << "Current i = " << i << std::endl;
+            std::cout << "Start index is " << start_index << std::endl;
+            std::cout << "Swapping " << str[start_index] << " with " << str[i] << std::endl;
+            std::swap(str[start_index], str[i]);
+            std::cout << "String now is " << str << std::endl;
+            
+            backtracking_permutations(str, start_index + 1, size);
+            
+            // Go back to the original string before swapping
+            std::cout << "Swapping back to original\n";
+            std::swap(str[start_index], str[i]);
+            std::cout << str << std::endl;
+            std::cout << "Current function is f(" << str << "," << start_index << "," << size << ") *********************************" << std::endl;    
         }
-        if(flag == 1)
-            result.push_back("YES");
-        else
-            result.push_back("NO");
     }
-    return result;
+    std::cout << std::endl;
 }
 
-int main() {
-    ofstream fout(getenv("OUTPUT_PATH"));
-    vector < string > res;
-    
-    int _arr_size = 0;
-    cin >> _arr_size;
-    cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n'); 
-    vector<string> _arr;
-    string _arr_item;
-    for(int _arr_i=0; _arr_i<_arr_size; _arr_i++) {
-        getline(cin, _arr_item);
-        _arr.push_back(_arr_item);
-    }
-    
-    res = checkDivisibility(_arr);
-    for(int res_i=0; res_i < res.size(); res_i++) {
-        fout << res[res_i] << endl;;
-    }
-    
-    fout.close();
+int main(){
+    std::string str = "ABC";
+    backtracking_permutations(str, 0, str.size());
+
     return 0;
 }
