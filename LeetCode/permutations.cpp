@@ -1,5 +1,9 @@
 // REF: https://stackoverflow.com/questions/361/generate-list-of-all-possible-permutations-of-a-string
 
+// Time Complexity: O(n*n!)
+
+// https://leetcode.com/problems/permutations/#/description
+
 #include <iostream>
 #include <vector>
 
@@ -24,17 +28,18 @@ void backtracking_permutations(std::string str, int start_index, int size){
             backtracking_permutations(str, start_index + 1, size);
             
             // Go back to the original string before swapping
-            std::cout << "Swapping back to original\n";
+            // Actually, it works without going back to the original as well
+            /*std::cout << "Swapping back to original\n";
             std::swap(str[start_index], str[i]);
             std::cout << str << std::endl;
-            std::cout << "Current function is f(" << str << "," << start_index << "," << size << ") *********************************" << std::endl;    
+            std::cout << "Current function is f(" << str << "," << start_index << "," << size << ") *********************************" << std::endl;  */  
         }
     }
     std::cout << std::endl;
 }
 
 int main(){
-    std::string str = "ABC";
+    std::string str = "AA";
     backtracking_permutations(str, 0, str.size());
 
     return 0;
