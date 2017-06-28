@@ -55,13 +55,36 @@ public:
     	}
     	return ans;
     }
+
+    // Backtracking
+    std::vector<std::vector<int>> subsets3(std::vector<int> nums){
+        std::vector<std::vector<int>> ans;
+        std::vector<int> temp;
+
+        subsets3_helper(ans, nums, temp, 0);
+
+        return ans;
+    }
+
+private:
+    void subsets3_helper(std::vector<std::vector<int>> &ans, std::vector<int> nums, std::vector<int> temp, int index){
+        
+        ans.push_back(temp);
+        
+        for(int i = index; i < nums.size(); i++){
+            temp.push_back(nums[i]);
+            subsets3_helper(ans, nums, temp, i + 1);
+            temp.pop_back();
+        }
+    }
+
 };
 
 int main(){
-	std::vector<int> nums = {1,2,1};
+	std::vector<int> nums = {1,2,3};
 
 	Solution obj1;
-	std::vector<std::vector<int>> subsets = obj1.subsets2(nums);
+	std::vector<std::vector<int>> subsets = obj1.subsets3(nums);
 	obj1.printVector(subsets);
 
 	return 0;
