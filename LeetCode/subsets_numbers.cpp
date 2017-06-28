@@ -81,7 +81,7 @@ private:
 };
 
 int main(){
-	std::vector<int> nums = {1,2,3};
+	std::vector<int> nums = {1,2,2};
 
 	Solution obj1;
 	std::vector<std::vector<int>> subsets = obj1.subsets3(nums);
