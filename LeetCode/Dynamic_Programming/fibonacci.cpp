@@ -20,14 +20,36 @@ int fib_memoization(int n, std::vector<int> &table){
 	return table[n -1];
 }
 
-int main(){
-	int n;
-	std::cin >> n;
-	//std::cout << fib_recursive(n) << std::endl;
+// Tabulation or bottom-up - build the damn table upfront
+int fib_tabulation(int n){
+	if(n == 0)
+		return 0;
 	std::vector<int> table(n);
 	// Initialize the table
 	for(int i = 0; i < n; i++)
 		table[i] = -1;
-	std::cout << fib_memoization(n, table) << std::endl;
+	// Build the table
+	for(int i = 0; i < n; i++){
+		if(i == 0 || i == 1)
+			table[i] = 1;
+		if(table[i] == -1)
+			table[i] = table[i - 2] + table[i - 1];
+	}
+	return table[n - 1];
+}
+
+int main(){
+	int n;
+	std::cin >> n;
+	// Recursive
+	//std::cout << fib_recursive(n) << std::endl;
+	// Memoization
+	std::vector<int> table(n);
+	// Initialize the table
+	for(int i = 0; i < n; i++)
+		table[i] = -1;
+	//std::cout << fib_memoization(n, table) << std::endl;
+	// Tabulation
+	std::cout << fib_tabulation(n) << std::endl;
 	return 0;
 }
