@@ -5,8 +5,9 @@
 void permute(std::string str, int start, int end, std::map<std::string, bool> &hashmap){
 	if(start == end){
 		// if not in hashmap, add it
-		if(hashmap.find(str) == hashmap.end())
-			hashmap[str] = true;
+		//if(hashmap.find(str) == hashmap.end())
+		hashmap[i] = 0;
+		hashmap[str] = true;
 	}
 	for(int j = start; j <= end; j++){
 		std::swap(str[start], str[j]);
