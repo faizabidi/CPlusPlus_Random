@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
 
 class Solution {
 public:
@@ -57,6 +58,28 @@ public:
         }
         return ans;
     }
+    // Better, cleaner solution
+    // Work from end of the string to the beginnning
+    // Source: https://discuss.leetcode.com/topic/7784/clean-o-n-c-solution
+    int romanToInt2(std::string str){
+    	std::map<char, int> hashmap = {{'I', 1},
+    									{'V', 5},
+    									{'X', 10},
+    									{'L', 50},
+    									{'C', 100},
+    									{'D', 500},
+    									{'M', 1000}};
+    	if(str.size() == 0)
+    		return 0;
+    	int ans = hashmap[str.back()];
+    	for(int i = str.size() - 2; i >= 0; i--){
+    		if(hashmap[str[i]] > hashmap[str[i + 1]])
+    			ans += hashmap[str[i]];
+    		else
+    			ans -= hashmap[str[i]];
+    	}
+    	return ans;
+    }
 };
 
 int main(){
@@ -64,6 +87,6 @@ int main(){
 	std::cin >> str;
 	Solution obj1;
 	std::cout << obj1.romanToInt(str) << std::endl;
-
+	std::cout << obj1.romanToInt2(str) << std::endl;
 	return 0;
 }
