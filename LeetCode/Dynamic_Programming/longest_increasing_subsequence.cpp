@@ -50,11 +50,11 @@ int longest_increasing_subseq2(std::vector<int> array){
 //////////////////////////////////////////////////////////////////////////////
 
 int main(){
-	std::vector<int> array = {50, 3, 10, 7, 40, 80};
+	//std::vector<int> array = {50, 3, 10, 7, 40, 80};
 	//std::vector<int> array = {3, 10, 2, 1, 20};
 	//std::vector<int> array = {3, 2};
 	//std::vector<int> array = {10,9,2,5,3,4};
-	//std::vector<int> array = {10, 22, 9, 33, 21, 50, 41, 60};
+	std::vector<int> array = {10, 22, 9, 33, 21, 50, 41, 60};
 	std::cout << longest_increasing_subseq1(array) << std::endl;
 	std::cout << longest_increasing_subseq2(array) << std::endl;
 
