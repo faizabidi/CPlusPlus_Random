@@ -1,14 +1,5 @@
-// https://www.geeksforgeeks.org/longest-increasing-subsequence/
-
 #include <vector>
 #include <iostream>
-#include <map>
-
-void print_vector(std::vector<int> array){
-	for(int i = 0; i < array.size(); i++)
-		std::cout << array[i] << " ";
-	std::cout << std::endl; 
-}
 
 //////////////////////////////////////////////////////////////////////////////
 // Brute force - find all sub-sequences
