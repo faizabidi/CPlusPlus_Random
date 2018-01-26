@@ -15,10 +15,10 @@ int longest_increasing_subseq_helper(std::vector<int> array, int prev_val, int c
 	int include = 0;
 	if(array[current] > prev_val)
 		include = 1 + longest_increasing_subseq_helper(array, 
-												array[current], current + 1);
+                                                array[current], current + 1);
 
 	int exclude = longest_increasing_subseq_helper(array, 
-												prev_val, current + 1);
+                                                prev_val, current + 1);
 
 	return std::max(include, exclude);
 }
@@ -53,8 +53,8 @@ int main(){
 	//std::vector<int> array = {50, 3, 10, 7, 40, 80};
 	//std::vector<int> array = {3, 10, 2, 1, 20};
 	//std::vector<int> array = {3, 2};
-	//std::vector<int> array = {10,9,2,5,3,4};
-	std::vector<int> array = {10, 22, 9, 33, 21, 50, 41, 60};
+	std::vector<int> array = {10,9,2,5,3,4};
+	//std::vector<int> array = {10, 22, 9, 33, 21, 50, 41, 60};
 	std::cout << longest_increasing_subseq1(array) << std::endl;
 	std::cout << longest_increasing_subseq2(array) << std::endl;
 
