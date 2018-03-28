@@ -15,7 +15,7 @@ void addEdge(std::vector<Edge> edges, std::vector<std::list<int>> &adjList){
     }
 }
 
-// Use BFS
+// Adjacency list representation of graph
 void printGraph(std::vector<std::list<int>> adjList, int nodes){
     for(int i = 0; i < adjList.size(); i++){
         std::cout << i << "->";
