@@ -1,3 +1,6 @@
+// Unweighted graph
+// http://www.techiedelight.com/graph-implementation-using-stl/
+
 #include <iostream>
 #include <vector>
 #include <list>
