@@ -20,7 +20,7 @@ void addEdge(std::vector<Edge> edges, std::vector<std::list<int>> &adjList){
 
 // Adjacency list representation of graph
 void printGraph(std::vector<std::list<int>> adjList, int nodes){
-    for(int i = 0; i < adjList.size(); i++){
+    for(int i = 0; i < nodes; i++){
         std::cout << i << "->";
         std::list<int>::iterator it;
         for(it = adjList[i].begin(); it != adjList[i].end(); it++)

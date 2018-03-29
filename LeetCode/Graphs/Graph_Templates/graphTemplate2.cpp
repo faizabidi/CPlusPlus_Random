@@ -31,7 +31,7 @@ public:
 	}
 private:
 	int vertices;
-	std::vector<std::list<int> > adjList;
+	std::vector<std::list<int>> adjList;
 
 	void DFS_helper(int vertex, std::vector<bool> visited){
 		if(!visited[vertex]){
