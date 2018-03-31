@@ -56,7 +56,7 @@ void dfs(int start, int nodes, std::vector<std::list<int>> adjList){
 
 // Recursive DFS
 void dfs_recursive(std::stack<int> &s, 
-    std::vector<std::list<int>> &adjList, std::vector<bool> &visited){
+    std::vector<std::list<int>> adjList, std::vector<bool> &visited){
 
     if(s.empty())
         return;
@@ -71,11 +71,12 @@ void dfs_recursive(std::stack<int> &s,
 
     std::list<int>::iterator it;
     for(it = adjList[start].begin(); it != adjList[start].end(); it++){
-        if(!visited[*it])
+        if(!visited[*it]){
             s.push(*it);
+            dfs_recursive(s, adjList, visited);
+        }
     }
     
-    dfs_recursive(s, adjList, visited);
 }
 
 int main(){
@@ -113,7 +114,8 @@ int main(){
     s.push(1);
     std::vector<bool> visited(nodes, false);
     std::cout << "Recursive DFS\n";
-    dfs_recursive(s, adjList, visited);
+    dfs_recursive(s, adjList, visited); // Ans = 1 2 3 4 5 6 7 8 9 10 11 12 
+    // It's okay if the recursive and iterative give different order. It's just about which node gets visited first.
     std::cout << std::endl;
 
     return 0;
