@@ -31,8 +31,7 @@ void printGrapgh(int nodes, std::vector<std::list<int>> adjList){
 
 // Iterative DFS
 void dfs(int start, int nodes, std::vector<std::list<int>> adjList){
-    std::stack<int> s;
-    std::vector<bool> visited(nodes, false);
+    std::stack<int> s; std::vector<bool> visited(nodes, false);
  
     s.push(start);
 
@@ -55,9 +54,29 @@ void dfs(int start, int nodes, std::vector<std::list<int>> adjList){
     std::cout << std::endl;
 }
 
-// TO-DO
 // Recursive DFS
-void dfs_recursive();
+void dfs_recursive(std::stack<int> &s, 
+    std::vector<std::list<int>> &adjList, std::vector<bool> &visited){
+
+    if(s.empty())
+        return;
+
+    int start = s.top();
+    s.pop();
+    
+    if(!visited[start]){
+        std::cout << start << " ";
+        visited[start] = true;
+    }
+
+    std::list<int>::iterator it;
+    for(it = adjList[start].begin(); it != adjList[start].end(); it++){
+        if(!visited[*it])
+            s.push(*it);
+    }
+    
+    dfs_recursive(s, adjList, visited);
+}
 
 int main(){
     // Node 0 is an un-connected node
@@ -85,7 +104,17 @@ int main(){
     // Print the graph
     printGrapgh(nodes, adjList);
 
+    // Iterative DFS
+    std::cout << "Iterative DFS\n";
     dfs(1, nodes, adjList); // Ans = 1 8 12 9 11 10 7 2 6 3 5 4 
+
+    // Recursive DFS
+    std::stack<int> s;
+    s.push(1);
+    std::vector<bool> visited(nodes, false);
+    std::cout << "Recursive DFS\n";
+    dfs_recursive(s, adjList, visited);
+    std::cout << std::endl;
 
     return 0;
 }
