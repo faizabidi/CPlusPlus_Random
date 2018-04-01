@@ -17,6 +17,8 @@ void addEdge(std::vector<Edge> edges, std::vector<std::list<std::pair<int, int>>
         int destination = edges[i].destination;
         int weight = edges[i].weight;
         adjList[source].push_back(std::make_pair(destination, weight));
+        // If it was an undirected gragh then uncomment the below line
+        //adjList[destination].push_back(std::make_pair(source, weight));
     }
 }
 

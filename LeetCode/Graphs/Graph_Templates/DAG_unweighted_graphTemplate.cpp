@@ -15,6 +15,8 @@ void addEdge(std::vector<Edge> edges, std::vector<std::list<int>> &adjList){
         int source = edges[i].source;
         int destination = edges[i].destination;
         adjList[source].push_back(destination);
+        // If it was an undirected graph, uncomment the below line
+        //adjList[destination].push_back(source);
     }
 }
 
