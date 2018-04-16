@@ -104,7 +104,8 @@ int main(){
     std::cout << "\nRecursive DFS\n";
     // Do DFS from all nodes to make sure even un-connected nodes are displayed
     for(int i = 0; i < nodes; i++)
-        dfs_recursive(i, adjList, visited1); // Ans = 1 2 3 4 5 6 7 8 9 10 11 12 
+        if(!visited1[i])
+            dfs_recursive(i, adjList, visited1); // Ans = 1 2 3 4 5 6 7 8 9 10 11 12 
     // It's okay if the recursive and iterative give different order. It's just about which node gets visited first.
     std::cout << std::endl;
 
