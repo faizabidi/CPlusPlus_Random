@@ -30,9 +30,8 @@ void printGrapgh(int nodes, std::vector<std::list<int>> adjList){
 }
 
 // Iterative DFS
-void dfs(int start, int nodes, std::vector<std::list<int>> adjList){
-    std::stack<int> s; std::vector<bool> visited(nodes, false);
- 
+void dfs_iterative(int start, std::vector<std::list<int>> &adjList, std::vector<bool> &visited){
+    std::stack<int> s;
     s.push(start);
 
     while(!s.empty()){
@@ -51,18 +50,10 @@ void dfs(int start, int nodes, std::vector<std::list<int>> adjList){
                 s.push(*it);
         }
     }
-    std::cout << std::endl;
 }
 
 // Recursive DFS
-void dfs_recursive(std::stack<int> &s, 
-    std::vector<std::list<int>> adjList, std::vector<bool> &visited){
-
-    if(s.empty())
-        return;
-
-    int start = s.top();
-    s.pop();
+void dfs_recursive(int start, std::vector<std::list<int>> adjList, std::vector<bool> &visited){
     
     if(!visited[start]){
         std::cout << start << " ";
@@ -71,12 +62,9 @@ void dfs_recursive(std::stack<int> &s,
 
     std::list<int>::iterator it;
     for(it = adjList[start].begin(); it != adjList[start].end(); it++){
-        if(!visited[*it]){
-            s.push(*it);
-            dfs_recursive(s, adjList, visited);
-        }
+        if(!visited[*it])
+            dfs_recursive(*it, adjList, visited);
     }
-    
 }
 
 int main(){
@@ -106,15 +94,17 @@ int main(){
     printGrapgh(nodes, adjList);
 
     // Iterative DFS
+    std::stack<int> s; std::vector<bool> visited(nodes, false);
     std::cout << "Iterative DFS\n";
-    dfs(1, nodes, adjList); // Ans = 1 8 12 9 11 10 7 2 6 3 5 4 
+    for(int i = 0; i < nodes; i++)
+        dfs_iterative(i, adjList, visited); // Ans = 1 8 12 9 11 10 7 2 6 3 5 4 
 
     // Recursive DFS
-    std::stack<int> s;
-    s.push(1);
-    std::vector<bool> visited(nodes, false);
-    std::cout << "Recursive DFS\n";
-    dfs_recursive(s, adjList, visited); // Ans = 1 2 3 4 5 6 7 8 9 10 11 12 
+    std::vector<bool> visited1(nodes, false);
+    std::cout << "\nRecursive DFS\n";
+    // Do DFS from all nodes to make sure even un-connected nodes are displayed
+    for(int i = 0; i < nodes; i++)
+        dfs_recursive(i, adjList, visited1); // Ans = 1 2 3 4 5 6 7 8 9 10 11 12 
     // It's okay if the recursive and iterative give different order. It's just about which node gets visited first.
     std::cout << std::endl;
 
