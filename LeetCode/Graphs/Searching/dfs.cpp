@@ -30,7 +30,10 @@ void printGrapgh(int nodes, std::vector<std::list<int>> adjList){
 }
 
 // Iterative DFS
-void dfs_iterative(int start, std::vector<std::list<int>> &adjList, std::vector<bool> &visited){
+// O(n+m), where n = vertices and m = edges
+void dfs_iterative(int start, std::vector<std::list<int>> &adjList, 
+                    std::vector<bool> &visited){
+    
     std::stack<int> s;
     s.push(start);
 
@@ -53,7 +56,9 @@ void dfs_iterative(int start, std::vector<std::list<int>> &adjList, std::vector<
 }
 
 // Recursive DFS
-void dfs_recursive(int start, std::vector<std::list<int>> adjList, std::vector<bool> &visited){
+// O(n+m), where n = vertices and m = edges
+void dfs_recursive(int start, std::vector<std::list<int>> adjList, 
+            std::vector<bool> &visited){
     
     if(!visited[start]){
         std::cout << start << " ";
