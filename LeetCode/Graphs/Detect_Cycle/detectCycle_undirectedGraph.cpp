@@ -73,20 +73,29 @@ bool checkCycle_BFS(int start, int nodes, std::vector<std::list<int>> graph){
 	std::vector<bool> visited(nodes, false);
 	visited[start] = true;
 
+    std::cout << "Parent of " << start << " = " << parent[start] << std::endl;
 	while(!q.empty()){
-		int start = q.front();
+        int start = q.front();
 		q.pop();
+        std::cout << "Running BFS(" << start << ")\n";
 		//std::cout << start << " ";
 		std::list<int>::iterator it;
 		for(it = graph[start].begin(); it != graph[start].end(); it++){
-			if(!visited[*it]){
+            if(!visited[*it]){
 				visited[*it] = true;
 				parent[*it] = start;
+                q.push(*it);
+                std::cout << "Parent of " << *it << " = " 
+                                            << parent[*it] << std::endl;
 			}
 			else{
+                std::cout << *it << " is an already visited vertex with parent = " << parent[*it] << std::endl;
 				// Check its parent
-				if(parent[start] != *it)
+				if(*it != parent[start]){
+                    std::cout << *it << " is not the parent of " << start << std::endl << "Found a cycle at vertex " 
+                                                    << *it << std::endl;
 					return true;
+                }
 			}
 		}
 	}
@@ -99,7 +108,7 @@ bool checkCycle_BFS(int start, int nodes, std::vector<std::list<int>> graph){
 
 int main(){
 	// Vertex 0 is an un-connected vertexs
-	std::vector<Edge> edges2 = {
+	std::vector<Edge> edges1 = {
 		{1, 2},
 		{1, 7},
 		{1, 8},
@@ -112,29 +121,29 @@ int main(){
 		{9, 10},
 		{9, 11},
 		{11, 12}
-	}; // Cycle at vertex 8
+	}; // Cycle at vertex 8. At 11 using BFS.
 
-	int nodes2 = 13;
+	int nodes1 = 13;
 
-	std::vector<Edge> edges = 
+	std::vector<Edge> edges2 = 
 	{
 		{0, 1},
 		{1, 2},
 		{1, 3},
 		{2, 4},
 		{2, 3}
-	}; // Cycle at vertex 1
+	}; // Cycle at vertex 1 using DFS. At 3 using BFS
 
-	int nodes = 5;
+	int nodes2 = 5;
 
-	std::vector<Edge> edges1 = 
+	std::vector<Edge> edges = 
 	{
 		{0, 1},
 		{1, 2},
 		{1, 3}
 	}; // No cycle
 
-	int nodes1 = 4;
+	int nodes = 4;
 
 	std::vector<std::list<int>> graph(nodes);
 	addEdge(edges, graph);
@@ -158,6 +167,10 @@ int main(){
 	else
 		std::cout << "Using BFS - No cycle in the graph.\n";
 	/*****************************************/
+
+    /*****************************************/
+    // Using topological sort
+    /*****************************************/    
 
 
 	return 0;
