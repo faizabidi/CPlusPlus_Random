@@ -102,13 +102,52 @@ bool checkCycle_BFS(int start, int nodes, std::vector<std::list<int>> graph){
 	return false;
 }
 
-// TO-DO
 // Check if there's a cycle using topological sort
+// Using Kahn's algorithm
+std::vector<int> calcIndegree(std::vector<Edge> edges, int nodes){
+    std::vector<int> inDegree(nodes, 0);
+    for(int i = 0; i < edges.size(); i++){
+        int source = edges[i].source;
+        int destination = edges[i].destination;
+        inDegree[source]++;
+        inDegree[destination]++;
+    }
+    return inDegree;
+}
 
+// Returns true if there's a cycle
+bool checkCycle_kahn(int start, std::vector<Edge> edges, int nodes, 
+                std::vector<std::list<int>> graph){
+    std::vector<int> inDegree = calcIndegree(edges, nodes);
+    // Do a BFS
+    std::vector<bool> visited(nodes, false);
+    std::queue<int> q;
+    q.push(start);
+    visited[start] = true;
+    while(!q.empty()){
+        int top = q.front();
+        q.pop();
+        std::list<int>::iterator it;
+        for(it = graph[start].begin(); it != graph[start].end(); it++){
+            if(!visited[*it]){
+                visited[*it] = true;
+                inDegree[*it]--;
+                inDegree[start]--;
+                q.push(*it);
+            }
+        }
+    }
+    // Check the in-degree vector. It should all be zeros if no cycle.
+    for(int i = 0; i < inDegree.size(); i++){
+        if(inDegree[i] > 0)
+            return true;
+    }
+    return false;
+}
 
 int main(){
 	// Vertex 0 is an un-connected vertexs
-	std::vector<Edge> edges1 = {
+	std::vector<Edge> edges2 = {
 		{1, 2},
 		{1, 7},
 		{1, 8},
@@ -123,18 +162,18 @@ int main(){
 		{11, 12}
 	}; // Cycle at vertex 8. At 11 using BFS.
 
-	int nodes1 = 13;
+	int nodes2 = 13;
 
-	std::vector<Edge> edges2 = 
+	std::vector<Edge> edges1 = 
 	{
 		{0, 1},
 		{1, 2},
 		{1, 3},
 		{2, 4},
 		{2, 3}
-	}; // Cycle at vertex 1 using DFS. At 3 using BFS
+	}; // Cycle at vertex 1 using DFS. At 3 using BFS.
 
-	int nodes2 = 5;
+	int nodes1 = 5;
 
 	std::vector<Edge> edges = 
 	{
@@ -170,8 +209,12 @@ int main(){
 
     /*****************************************/
     // Using topological sort
+    // Applying Kahn's topological sorting
+    if(checkCycle_kahn(1, edges, nodes, graph))
+        std::cout << "Using Kahn - Cycle in the graph.\n";
+    else
+        std::cout << "Using Kahn - No cycle in the graph.\n";
     /*****************************************/    
-
 
 	return 0;
 }
