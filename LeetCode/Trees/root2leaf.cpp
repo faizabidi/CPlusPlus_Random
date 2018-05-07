@@ -11,23 +11,30 @@
  */
 class Solution {
 public:
-    // Recursive
-    vector<string> binaryTreePaths(TreeNode* root){
-        std::vector<std::string> allPaths;
+    void binaryTreePaths_helper(TreeNode* root, vector<string> &ans, string temp){
         if(!root)
-            return allPaths; 
-        helper(root, std::to_string(root->val), allPaths);
-        return allPaths;
+            return;
+        std::cout << "Running f(" << root->val << ")\n";
+        temp += to_string(root->val);
+        // If leaf node found
+        if(!root->left && !root->right)
+            ans.push_back(temp);
+        temp += "->";
+        if(root->left)
+            binaryTreePaths_helper(root->left, ans, temp);
+        if(root->right)
+            binaryTreePaths_helper(root->right, ans, temp);
     }
-    void helper(TreeNode *temp, std::string node_value, std::vector<std::string> &tempPath){
-        if(!temp->left && !temp->right)
-            tempPath.push_back(node_value);
-        if(temp->left)
-            helper(temp->left, node_value + "->" + std::to_string(temp->left->val), tempPath);
-        if(temp->right)
-            helper(temp->right, node_value + "->" + std::to_string(temp->right->val), tempPath);
-            
+    vector<string> binaryTreePaths(TreeNode* root){
+        vector<string> ans;
+        if(!root)
+            return ans;
+        string temp = "";
+        binaryTreePaths_helper(root, ans, temp);
+        return ans;
     }
+};
+
     // Non-recursive
     /*vector<string> binaryTreePaths(TreeNode* root){
         std::vector<std::string> allPaths;
@@ -63,4 +70,3 @@ public:
         }
         return allPaths;
     }*/
-};
