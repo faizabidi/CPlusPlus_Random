@@ -1,3 +1,6 @@
+// Time complexity - Best and worst case - O(nlog(n))
+// Space complexity - O(n)
+
 #include <iostream>
 #include <vector>
 
