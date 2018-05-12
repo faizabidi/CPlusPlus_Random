@@ -9,6 +9,8 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+
+// O(n)
 class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head){
