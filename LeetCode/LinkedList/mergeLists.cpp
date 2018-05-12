@@ -1,4 +1,4 @@
-// https://leetcode.com/problems/merge-two-sorted-lists/
+// https://leetcode.com/problems/merge-two-sorted-lists/discuss/125653/C++-without-extra-memory!
 
 /**
  * Definition for singly-linked list.
@@ -8,46 +8,48 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
-class Solution{
+class Solution {
 public:
-    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2){
-        // If list 1 is empty
-        if(l1 == NULL && l2 != NULL)
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        if(!l1 && l2)
             return l2;
-        // If list 2 is empty
-        if(l1 != NULL && l2 == NULL)
+        if(l1 && !l2)
             return l1;
-        // If both lists are empty
-        if(l1 == NULL && l2 == NULL)
-            return l1;
-        // If both lists are not empty
-        ListNode *temp, *start;
-        if(l1->val < l2->val){
-            temp = new ListNode(l1->val);
-            start = temp;
+        if(!l1 && !l2)
+            return NULL;
+        ListNode *l3;
+        // Find the head
+        if(l1->val <= l2->val){
+            l3 = l1;
             l1 = l1->next;
         }
         else{
-            temp = new ListNode(l2->val);
-            start = temp;
+            l3 = l2;
             l2 = l2->next;
         }
+        ListNode *temp = l3;
         while(l1 && l2){
-            if(l1->val < l2->val){
+            if(l1->val <= l2->val){
                 temp->next = l1;
+                temp = temp->next;
                 l1 = l1->next;
             }
-            else{
+            else if(l1->val > l2->val){
                 temp->next = l2;
+                temp = temp->next;
                 l2 = l2->next;
             }
-            temp = temp->next;
         }
-        // Check if more items left in the two lists
-        if(l1)
+        while(l1){
             temp->next = l1;
-        else if(l2)
+            temp = temp->next;
+            l1 = l1->next;
+        }
+        while(l2){
             temp->next = l2;
-        return start;
+            temp = temp->next;
+            l2 = l2->next;
+        }
+        return l3;
     }
 };
