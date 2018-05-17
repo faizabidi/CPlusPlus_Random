@@ -78,16 +78,16 @@ int lcs_recursive(std::string str1, std::string str2,                           
 // https://www.youtube.com/watch?v=cfCdtJSu5pc
 // DP solution
 void lcs_dp(std::string str1, std::string str2){
-    int rows = str1.size() + 1;
-    int cols = str2.size() + 1;
+    int rows = str2.size() + 1;
+    int cols = str1.size() + 1;
     std::vector<std::vector<int>> matrix(rows, std::vector<int>(cols));
     for(int i = 0; i < rows; i++){
         for(int j = 0; j < cols; j++){
             if(i == 0 || j == 0)
                 matrix[i][j] = 0;
-            else if(str1[i - 1] == str2[j - 1])
+            else if(str2[i - 1] == str1[j - 1])
                 matrix[i][j] = matrix[i - 1][j - 1] + 1;
-            else if(str1[i - 1] != str2[j - 1])
+            else if(str2[i - 1] != str1[j - 1])
                 matrix[i][j] = std::max(matrix[i - 1][j], matrix[i][j - 1]);
         }
     }
@@ -100,7 +100,7 @@ int main(){
     std::string str1 = "AGGTAB";
     std::string str2 = "GXTXAYB";
     
-    std::cout << lcs(str1, str2) << std::endl;
+    //std::cout << lcs(str1, str2) << std::endl;
     //std::cout << lcs_recursive(str1, str2, 0, 0) << std::endl;
     lcs_dp(str1, str2);
 
