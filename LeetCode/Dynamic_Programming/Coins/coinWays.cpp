@@ -23,12 +23,11 @@ int coinWays(std::vector<int> denominations, int curr_index, int money){
 	return ways;
 }
 
-
 // DP approach
 // In the recursive approach, the function gets called several times just like
 // we saw in the fibonacci series. What if we store the values in the hashmap?
 // Memoization ot top-down
-// O(nxm) + O(n*m) space
+// O(nxm) time + O(nxm) space (space of the hashmap)
 int coinWays2(std::vector<int> denominations, int curr_index, 
 			int money, std::map<std::pair<int, int>, int> &hashmap){
 
@@ -63,12 +62,22 @@ int coinWays2(std::vector<int> denominations, int curr_index,
 
 }
 
-// TODO
 // Tabulation method
-// O(nxm)
-int coinWays3(){
-	int ways = 0;
-	return ways;
+// https://www.youtube.com/watch?v=jaNZ83Q3QGc
+// O(nxm) time && O(n) space
+int coinWays3(std::vector<int> denominations, int sum){
+	std::vector<int> array(sum + 1, 0);
+	for(int i = 0; i < denominations.size(); i++){
+		int currCoin = denominations[i];
+		for(int j = 0; j < array.size(); j++){
+			if(j == 0)
+				array[j] = 1;
+			if(j >= currCoin){
+				array[j] += array[j - currCoin];
+			}
+		}
+	}
+	return array[sum];
 }
 
 int main(){
@@ -82,5 +91,7 @@ int main(){
 	std::map<std::pair<int, int>, int> hashmap;
 	std::cout << coinWays2(denominations, curr_index, money, hashmap)
 																<< std::endl;
+
+	std::cout << coinWays3(denominations, money) << std::endl;
 	return 0;
 }
