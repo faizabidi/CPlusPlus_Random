@@ -11,13 +11,6 @@ void printVector(std::vector<T> array){
 	std::cout << std::endl;
 }
 
-void printVector2(std::vector<std::vector<int>> array){
-	for(int i = 0; i < array.size(); i++){
-		for(int j = 0; j < array[i].size(); i++)
-			std::cout << array[i][j] << " ";
-		std::cout << std::endl;
-	}
-}
 /****************************/
 // Brute force
 // O(money^denominations) time and O(n) space
@@ -79,7 +72,9 @@ int minCoins3(std::vector<int> denominations, int money){
 											1+sumArray[j - currentCoin]);
 		}
 	}
-	//printVector(sumArray);
+	// Return -1 if not found
+	if(sumArray[money] >= INT_MAX - 1)
+            return -1;
 	return sumArray[money];
 }
 
