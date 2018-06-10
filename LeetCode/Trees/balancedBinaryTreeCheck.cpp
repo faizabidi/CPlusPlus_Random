@@ -11,6 +11,7 @@
  */
 class Solution {
 public:
+    // O(n) time
     int getHeight(TreeNode *root){
         if(!root)
             return 0;
@@ -33,6 +34,7 @@ public:
         }
         return height;
     }
+    // O(nxn) time
     bool isBalanced(TreeNode* root){
         if(!root)
             return true;
