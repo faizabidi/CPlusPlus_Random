@@ -20,6 +20,7 @@
  */
 class Solution {
 public:
+    // O(n) time
     bool findAncesstors(TreeNode *root, TreeNode *p, vector<TreeNode *> &ancesstors){
         if(!root)
             return false;
@@ -41,6 +42,7 @@ public:
         
         return false;
     }
+    // O(n) time
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
         vector<TreeNode *> p_ancesstors, q_ancesstors;
         findAncesstors(root, p, p_ancesstors);
