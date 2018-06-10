@@ -9,68 +9,48 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
 class Solution {
 public:
-    
-    // Find all ancestors
-    bool findAncestors(TreeNode *temp, TreeNode *val, std::vector<TreeNode *> &path){
-        if(!temp)
-            return false;
-        if(temp == val){
-            path.push_back(temp);
-            return true;
-        }
-        // Find if present in left sub-trees
-        if(findAncestors(temp->left, val, path)){
-            path.push_back(temp);
-            return true;
-        }
-        // Find if present in right sub-trees
-        else if(findAncestors(temp->right, val, path)){
-            path.push_back(temp);
-            return true;
-        }
-        return false;
-    }   
-    
-    TreeNode *lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q){
-        // Find all ancestors of both nodes
-        // And take the intersection
+    bool findAncesstors(TreeNode *root, TreeNode *p, vector<TreeNode *> &ancesstors){
         if(!root)
-            return NULL;
-            
-        std::vector<TreeNode *> p_ancestors, q_ancestors;
-        TreeNode * lca;
-        
-        // p's ancestors
-        findAncestors(root, p, p_ancestors);
-        
-         // q's ancestors
-        findAncestors(root, q, q_ancestors);
-        
-        // Reverse the vectors to start at the top
-        std::reverse(p_ancestors.begin(), p_ancestors.end());
-        std::reverse(q_ancestors.begin(), q_ancestors.end());
-        
-        std::cout << p->val << "'s ancestors are:";
-        for(int i = 0; i < p_ancestors.size(); i++)
-            std::cout << p_ancestors[i]->val << " ";
-        std::cout << std::endl;
-        
-        std::cout << q->val << "'s ancestors are:";
-        for(int i = 0; i < q_ancestors.size(); i++)
-            std::cout << q_ancestors[i]->val << " ";
-        std::cout << std::endl;
-        
-        // Find out the last common element
-        for(int i = 0; i < p_ancestors.size() && i < q_ancestors.size(); i++){
-            if(p_ancestors[i] != q_ancestors[i]){
-                lca = p_ancestors[i - 1];
-                break;
-            }
-            else 
-                lca = p_ancestors[i];
+            return false;
+        if(root == p){
+            ancesstors.push_back(root);
+            return true;
         }
-        return lca;
+        // If found in left sub-tree
+        if(findAncesstors(root->left, p, ancesstors)){
+            ancesstors.push_back(root);
+            return true;
+        }
+        
+        // If found in right sub-tree
+        if(findAncesstors(root->right, p, ancesstors)){
+            ancesstors.push_back(root);
+            return true;
+        }
+        
+        return false;
+    }
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        vector<TreeNode *> p_ancesstors, q_ancesstors;
+        findAncesstors(root, p, p_ancesstors);
+        findAncesstors(root, q, q_ancesstors);
+        
+        // Find the first common value in the two vectors
+        for(int i = 0; i < p_ancesstors.size(); i++){
+            if(std::find(q_ancesstors.begin(), q_ancesstors.end(), p_ancesstors[i]) != q_ancesstors.end())
+                return p_ancesstors[i];
+        }
+        return NULL;
     }
 };
