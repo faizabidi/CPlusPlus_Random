@@ -1,3 +1,5 @@
+// https://leetcode.com/problems/number-of-islands/description/
+
 #include <iostream>
 #include <vector>
 #include <queue>
@@ -60,6 +62,38 @@ int numIslands(std::vector<std::vector<char> > matrix){
 		}
 	}
 	return ans;
+}
+/****************************/
+// DFS
+// O(nxn) time and O(1) space
+void numIslands_helper(vector<vector<char>> &grid, int i, int j){
+    // Base case
+    if(i < 0 || i == grid.size() || j < 0 || j == grid[0].size())
+        return;
+    if(grid[i][j] == '0')
+        return;
+    if(grid[i][j] == '1')
+        grid[i][j] = '0';
+    // Check left
+    numIslands_helper(grid, i, j-1);
+    // Check right
+    numIslands_helper(grid, i, j+1);
+    // Check top
+    numIslands_helper(grid, i-1, j);
+    // Check bottom
+    numIslands_helper(grid, i+1, j);
+}
+int numIslands2(vector<vector<char>> &grid){
+    int count = 0;
+    for(int i = 0; i < grid.size(); i++){
+        for(int j = 0; j < grid[0].size(); j++){
+            if(grid[i][j] == '1'){
+                numIslands_helper(grid, i, j);
+                count++;
+            }
+        }
+    }
+    return count;
 }
 
 int main(){
