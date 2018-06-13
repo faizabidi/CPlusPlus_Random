@@ -30,22 +30,23 @@ TreeNode *insert(TreeNode *root, int element){
     }
     
     // Else, traverse the tree and find the position where to insert
-    TreeNode *temp = root;
+    TreeNode *curr = root, *prev = root;
     
-    // Go as left as possible
-    while(temp->val < element && temp->right)
-        temp = temp->right;
-    
-    // Go as right as possible
-    while(temp->val > element && temp->left)
-        temp = temp->left;
-    
+    while(curr){
+        prev = curr;
+        // Go as left as possible
+        if(curr->val < element)
+            curr = curr->right;
+        else
+            // Go as right as possible
+            curr = curr->left;
+    }
     
     // Insert
-    if(temp->val >= element)
-        temp->left = newNode;
+    if(prev->val >= element)
+        prev->left = newNode;
     else
-        temp->right = newNode;
+        prev->right = newNode;
     return root;
 }
 
