@@ -35,23 +35,18 @@ int uniquePaths_helper2(int m, int n, int i, int j,
     
     int right = 0, bottom = 0;
     // Check if in hashmap
+    auto it = hashmap.find(std::make_pair(i,j));
+    if(it != hashmap.end())
+    	return hashmap[std::make_pair(i,j)];
+
     // Check right side
-    auto it1 = hashmap.find(std::make_pair(i,j+1));
-    if(it1 == hashmap.end()){
-        right = uniquePaths_helper2(m, n, i, j+1, hashmap);
-        hashmap[std::make_pair(i, j+1)] = right;
-    }
-    else
-        right = hashmap[std::make_pair(i, j+1)];
-    // Check bottom side
-    auto it2 = hashmap.find(std::make_pair(i+1, j));
-    if(it2 == hashmap.end()){
-        bottom = uniquePaths_helper2(m, n, i+1, j, hashmap);
-        hashmap[std::make_pair(i+1, j)] = bottom;
-    }
-    else
-        bottom = hashmap[std::make_pair(i+1, j)];
-    return right + bottom;
+    right = uniquePaths_helper2(m, n, i, j+1, hashmap);
+    // Check the bottom side
+    bottom = uniquePaths_helper2(m, n, i+1, j, hashmap);
+        
+    // Add to hashmap
+    hashmap[std::make_pair(i, j)] = right + bottom;
+    return hashmap[std::make_pair(i, j)];
 }
 
 int uniquePaths2(int m, int n){
