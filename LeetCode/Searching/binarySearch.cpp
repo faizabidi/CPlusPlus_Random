@@ -1,9 +1,10 @@
-// Best case - O(n)
-// Worst case - O(log(n))
+// Best case - O(1)
+// Worst, average case - O(log(n))
 
 #include <iostream>
 #include <vector>
 
+// Using iteration
 bool binarySearch(std::vector<int> array, int element){
 	int start = 0, end = array.size() - 1, mid = 0;
 
@@ -19,13 +20,30 @@ bool binarySearch(std::vector<int> array, int element){
 	return false;
 }
 
+// Using recursion
+bool binarySearch_helper(std::vector<int> array, int start, int end, int val){
+	if(start > end)
+		return false;
+	int mid = (start + end) / 2;
+	if(array[mid] == val)
+		return true;
+	if(array[mid] > val)
+		return binarySearch_helper(array, start, mid - 1, val);
+	else
+		return binarySearch_helper(array, mid+1, end, val);
+}
+
+bool binarySearch2(std::vector<int> array, int val){
+	return binarySearch_helper(array, 0, array.size(), val);
+}
+
 int main(){
 	std::vector<int> array = {1,2,3,4,5,6,7,8,9};
 	//std::vector<int> array = {1,2};
 	int element;
 	std::cin >> element;
 
-	if(binarySearch(array, element))
+	if(binarySearch2(array, element))
 		std::cout << "Found!\n";
 	else
 		std::cout << "Not found\n";
