@@ -42,10 +42,12 @@ std::string lcs(std::string str1, std::string str2){
     while(i > 0 && j > 0){
         if(str1[i - 1] == str2[j - 1]){
             lcs_str += str2[j - 1];
+            // Go diagonal
             i--;
             j--;
         }
         else{
+            // Go in the direction of max
             if(matrix[i - 1][j] > matrix[i][j - 1])
                 i--;
             else
