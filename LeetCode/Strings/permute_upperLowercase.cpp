@@ -1,5 +1,7 @@
 // https://leetcode.com/problems/letter-case-permutation/description/
 
+
+// O(m*2^n)
 class Solution {
 public:
     void letterCasePermutation_helper(string S, int index, 
@@ -17,7 +19,7 @@ public:
         // Make lowercase
         letterCasePermutation_helper(S, index+1, ans, 
                                 temp + char(tolower(S[index])));
-        
+
     }
     vector<string> letterCasePermutation(string S){
         vector<string> ans;
