@@ -45,6 +45,9 @@ std::vector<std::string> powerSet2(std::string str){
     return set;   
 }
 /*************************/
+// Recursive approach
+// O(2^n)
+
 
 int main(){
     std::string str = "abc";
