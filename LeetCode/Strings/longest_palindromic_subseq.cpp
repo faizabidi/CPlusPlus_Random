@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
 
 void printMatrix(std::vector<std::vector<int>> matrix){
     for(int i = 0; i < matrix.size(); i++){
@@ -17,7 +18,7 @@ void printMatrix(std::vector<std::vector<int>> matrix){
 /*********************************************/
 // Using recursion, find the length
 // O(2^n)
-int LPS(std::string str, int start, int end){
+int LPS_recursion(std::string str, int start, int end){
     // Base cases
 
     // length is 1
@@ -30,17 +31,50 @@ int LPS(std::string str, int start, int end){
 
     // If both characters are same and not contiguous
     if(str[start] == str[end])
-        return 2 + LPS(str, start+1, end - 1);
+        return 2 + LPS_recursion(str, start+1, end - 1);
 
     // If both characters are not same
     // One time include 1 of them and the other time the other
-    return std::max(LPS(str, start+1, end), LPS(str, start, end - 1));
+    return std::max(LPS_recursion(str, start+1, end), 
+                                LPS_recursion(str, start, end - 1));
+}
+/*********************************************/
+// Using memoization
+int LPSeq_memoization_helper(std::string str, int start, int end, 
+                                std::map<std::pair<int, int>, int> &hashmap){
+
+    // Check if in hashmap
+    std::pair<int, int> key = {start, end};
+    if(hashmap[key])
+        return hashmap[key];
+    
+    if(start > end)
+        return 0;
+    if(start == end)
+        return 1;
+
+    if(str[start] == str[end])
+        hashmap[key] =  2 + LPSeq_memoization_helper(str, start+1, 
+                                                            end-1, hashmap);
+    else{
+        int include_start = LPSeq_memoization_helper(str, start, 
+                                                            end-1, hashmap);
+        int include_end = LPSeq_memoization_helper(str, start+1, 
+                                                            end, hashmap);
+        hashmap[key] = std::max(include_start, include_end);
+    }
+    return hashmap[key];
 }
 
+int LPSeq_memoization(std::string str){
+    int start = 0, end = str.size() - 1;
+    std::map<std::pair<int, int>, int> hashmap;
+    int len = LPSeq_memoization_helper(str, start, end, hashmap);
+    return len;
+}
 /*********************************************/
-// Using DP
+// Using tabulation
 // O(nxn) time and O(nxn) space
-
 // Print the longest palindromic subseq
 std::string print_LPSeq(std::vector<std::vector<int>> matrix, std::string str){
     std::string start = "", end = "", ans = "";
@@ -110,15 +144,18 @@ int longestPalindromeSubseq(std::string str){
 
 
 int main(){
-    //std::string str = "abcda"; // Ans = aba, 3
+    std::string str = "abcda"; // Ans = aba, 3
     //std::string str = "abba"; // Ans = abba, 4
     //std::string str = "abcdeaba"; // Ans = abcba, 5
     //std::string str = "abca"; // Ans = aba, 3
     //std::string str = "BBABCBCAB"; // Ans = BABCBAB, 7
     //std::string str = "GEEKSFORGEEKS"; // Ans = EEKEE, 5
+    //std::string str = "a";
     std::cout << longestPalindromeSubseq(str) << std::endl;
 
-    std::cout << LPS(str, 0, str.size() - 1) << std::endl;
+    std::cout << LPS_recursion(str, 0, str.size() - 1) << std::endl;
+
+    std::cout << LPSeq_memoization(str) << std::endl;
 
     return 0;
 }
