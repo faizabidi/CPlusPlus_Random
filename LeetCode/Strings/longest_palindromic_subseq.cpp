@@ -40,6 +40,7 @@ int LPS_recursion(std::string str, int start, int end){
 }
 /*********************************************/
 // Using memoization
+// O(nxn) time and O(nxn) space + O(n) space for the recursive stack
 int LPSeq_memoization_helper(std::string str, int start, int end, 
                                 std::map<std::pair<int, int>, int> &hashmap){
 
@@ -47,7 +48,7 @@ int LPSeq_memoization_helper(std::string str, int start, int end,
     std::pair<int, int> key = {start, end};
     if(hashmap[key])
         return hashmap[key];
-    
+
     if(start > end)
         return 0;
     if(start == end)
