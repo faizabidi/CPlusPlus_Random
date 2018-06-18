@@ -51,12 +51,11 @@ std::string longestPalindrome(std::string str){
 // with solutions like that in the moment
 std::string longestPalindrome_dp(std::string str){
     std::vector<std::vector<int>> matrix(str.size(), 
-                                        std::vector<int>(str.size(), 9));
+                                        std::vector<int>(str.size(), 0));
     
     if(str.size() < 2)
         return str;
 
-    std::string ans = "";
     int maxLength = 0;
     int start = 0;
 
@@ -77,8 +76,8 @@ std::string longestPalindrome_dp(std::string str){
     }
 
     // Length > 2
-    for(int len = 2; len <= str.size(); len++){
-        for(int i = 0; i < str.size() - len + 1; i++){
+    for(int len = 3; len <= str.size(); len++){
+        for(int i = 0; i <= str.size() - len; i++){
             int j = len + i - 1;
             if(str[i] == str[j]){
                 // Check the middle part
@@ -93,23 +92,13 @@ std::string longestPalindrome_dp(std::string str){
             }
         }
     }
+    //printMatrix(matrix);
     return str.substr(start, maxLength);
 }
 /******************************************/
 int main(){
-	//std::string str = "ibvjkmpyzsifuxcabqqpahjdeuzaybqsrsmbfplxycsafogotliyvhxjtkrbzqxlyfwujzhkdafhebvsdhkkdbhlhmaoxmbkqiwiusngkbdhlvxdyvnjrzvxmukvdfobzlmvnbnilnsyrgoygfdzjlymhprcpxsnxpcafctikxxybcusgjwmfklkffehbvlhvxfiddznwumxosomfbgxoruoqrhezgsgidgcfzbtdftjxeahriirqgxbhicoxavquhbkaomrroghdnfkknyigsluqebaqrtcwgmlnvmxoagisdmsokeznjsnwpxygjjptvyjjkbmkxvlivinmpnpxgmmorkasebngirckqcawgevljplkkgextudqaodwqmfljljhrujoerycoojwwgtklypicgkyaboqjfivbeqdlonxeidgxsyzugkntoevwfuxovazcyayvwbcqswzhytlmtmrtwpikgacnpkbwgfmpavzyjoxughwhvlsxsgttbcyrlkaarngeoaldsdtjncivhcfsaohmdhgbwkuemcembmlwbwquxfaiukoqvzmgoeppieztdacvwngbkcxknbytvztodbfnjhbtwpjlzuajnlzfmmujhcggpdcwdquutdiubgcvnxvgspmfumeqrofewynizvynavjzkbpkuxxvkjujectdyfwygnfsukvzflcuxxzvxzravzznpxttduajhbsyiywpqunnarabcroljwcbdydagachbobkcvudkoddldaucwruobfylfhyvjuynjrosxczgjwudpxaqwnboxgxybnngxxhibesiaxkicinikzzmonftqkcudlzfzutplbycejmkpxcygsafzkgudy"; // Ans = fklkf
-
-    //std::string str = "babaddtattarrattatddetartrateedredividerb";
-    //std::string str = "abadsdgjf"; // Ans = aba
-    
-    //std::string str = "abaabc"; // Ans = baab
-    //std::string str = "banana"; // Ans = anana
-    //std::string str = "abcda"; // Ans = a
-    //std::string str = "faiaz"; // Ans = aia
-    //std::string str = "ababc"; // Ans = aba
-    // std::string str = ""; // Ans = ""
-    
-    std::string str = "jglknendplocymmvwtoxvebkekzfdhykknufqdkntnqvgfbahsljkobhbxkvyictzkqjqydczuxjkgecdyhixdttxfqmgksrkyvopwprsgoszftuhawflzjyuyrujrxluhzjvbflxgcovilthvuihzttzithnsqbdxtafxrfrblulsakrahulwthhbjcslceewxfxtavljpimaqqlcbrdgtgjryjytgxljxtravwdlnrrauxplempnbfeusgtqzjtzshwieutxdytlrrqvyemlyzolhbkzhyfyttevqnfvmpqjngcnazmaagwihxrhmcibyfkccyrqwnzlzqeuenhwlzhbxqxerfifzncimwqsfatudjihtumrtjtggzleovihifxufvwqeimbxvzlxwcsknksogsbwwdlwulnetdysvsfkonggeedtshxqkgbhoscjgpiel";
+    std::string str = "ababc"; // Ans = aba
+    //std::string str = ""; // Ans = ""
 
 	std::cout << longestPalindrome(str) << std::endl;
 
