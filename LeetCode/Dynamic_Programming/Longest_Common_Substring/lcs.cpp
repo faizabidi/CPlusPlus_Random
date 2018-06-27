@@ -72,7 +72,8 @@ void printLCS(std::vector<std::vector<int>> matrix,
 }
 /****************************/
 // DP Solution
-// O(nxm)
+// O(nxm) time && O(nxm) space
+// Tabulation
 int lcs_dp(std::string str1, std::string str2){
 	int ans = 0;
 	int rows = str1.size() + 1;

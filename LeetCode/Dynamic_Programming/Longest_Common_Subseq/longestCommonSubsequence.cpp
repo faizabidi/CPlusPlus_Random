@@ -46,7 +46,7 @@ int lcs(std::string str1, std::string str2){
     // Now compare the two vectors and look for the longest common subsequence
     std::string ans;
     for(int i = 0; i < str1_subs.size(); i++){
-        if( std::find(str2_subs.begin(), str2_subs.end(), str1_subs[i]) != str2_subs.end()){
+        if(std::find(str2_subs.begin(), str2_subs.end(), str1_subs[i]) != str2_subs.end()){
             
             if(str1_subs[i].size() > ans.size())
                 ans = str1_subs[i];
@@ -57,7 +57,7 @@ int lcs(std::string str1, std::string str2){
     return ans.size();
 }
 /***************************************************************************/
-// Recursive LCS solution
+// Another recursive LCS solution
 // O(2^n)
 int lcs_recursive(std::string str1, std::string str2,                                          int index1, int index2){
     
