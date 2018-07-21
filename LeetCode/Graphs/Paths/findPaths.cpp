@@ -1,5 +1,7 @@
 // https://leetcode.com/problems/all-paths-from-source-to-target/description/
 
+
+// O(2^n * nxn) time and O(2^n * n) space
 class Solution {
 public:
     void dfs(vector<vector<int>> graph, int src, int dest, vector<int> temp, vector<vector<int>> &allPaths){
