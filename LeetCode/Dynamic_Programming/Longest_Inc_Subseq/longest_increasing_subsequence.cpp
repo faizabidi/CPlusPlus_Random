@@ -30,28 +30,21 @@ int longest_increasing_subseq1(std::vector<int> array){
 // DP solution using tabulation
 // https://www.youtube.com/watch?v=CE2b_-XfVDk
 // O(nxn) && O(n)
-int longest_increasing_subseq2(std::vector<int> array){
-    std::vector<int> lis;
-    std::vector<int> ans;
-    if(array.size() == 0)
-    	return 0;
-    // Initialize the vector to 1 since the LIS at least would be 1 for each element
-    for(int i = 0; i < array.size(); i++)
-    	ans.push_back(1);
-
-    // Build the vector
-    for(int i = 1; i < array.size(); i++){
-        std::vector<int> temp_lis;
-    	for(int j = 0; j < i; j++){
-    		if(array[i] > array[j] && ans[i] < ans[j] + 1){
-    			ans[i] = ans[j] + 1;
-                temp_lis.push_back(array[j]);
+int longest_increasing_subseq2(std::vector<int> nums){
+    if(nums.size() == 0)
+        return 0;
+    std::vector<int> LIC(nums.size(), 1);
+    int max = 1;
+    for(int i = 0; i < nums.size(); i++){
+        for(int j = 0; j < i; j++){
+            if(nums[i] > nums[j]){
+                LIC[i] = std::max(LIC[i], LIC[j] + 1);
+                if(LIC[i] > max)
+                    max = LIC[i];
             }
-    	}
-        if(temp_lis.size() > lis.size())
-            lis = temp_lis;
+        }
     }
-    return *std::max_element(ans.begin(), ans.end());
+    return max;
 }
 //////////////////////////////////////////////////////////////////////////////
 
