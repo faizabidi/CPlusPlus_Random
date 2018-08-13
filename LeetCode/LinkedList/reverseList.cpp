@@ -26,14 +26,19 @@ public:
     // Recursively
     // O(n) time & O(n) space
     // https://stackoverflow.com/questions/354875/reversing-a-linked-list-in-java-recursively
+    ListNode *reverseList_helper(ListNode *head, ListNode *prev){
+        if(!head)
+            return prev;
+        ListNode *nxt = head->next;
+        head->next = prev;
+        prev = head;
+        head = nxt;
+        return reverseList_helper(head, prev);
+    }
+    // Recursive
     ListNode* reverseList(ListNode* head){
         if(!head || !head->next)
             return head;
-        
-        ListNode *temp = head->next;
-        head->next = NULL;
-        ListNode *nextElem = reverseList(temp);
-        temp->next = head;
-        return nextElem;
+        return reverseList_helper(head, NULL);
     }
 };
