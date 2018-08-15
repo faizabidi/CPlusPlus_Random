@@ -9,6 +9,10 @@ void print(std::vector<int> array){
 	cout << endl;
 }
 
+
+// Best is O(n) time
+// Worst and avg. is O(nxn) time
+// O(1) space
 std::vector<int> BubbleSort(std::vector<int> array){
 	for(int i = 1; i < array.size(); i++){
 		bool flag = true;
