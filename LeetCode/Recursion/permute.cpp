@@ -4,7 +4,7 @@
 
 using namespace std;
 
-// O(n*n!) time 
+// O(n!) time && O(n^2) space (recursion tree + string length)
 void permute(string str, int index){
     if(index == str.size()){
         cout << str << endl;
