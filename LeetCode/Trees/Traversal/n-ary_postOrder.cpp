@@ -13,6 +13,8 @@ public:
     }
 };
 */
+
+// Recursive solution
 class Solution {
 public:
     void postorderTraversal(vector<int> &array, Node *root){
@@ -26,6 +28,26 @@ public:
     vector<int> postorder(Node* root){
         vector<int> array;
         postorderTraversal(array, root);
+        return array;
+    }
+};
+// Itreative solution
+class Solution {
+public:
+    vector<int> postorder(Node* root) {
+        if(!root)
+            return {};
+        vector<int> array;
+        stack<Node *> s;
+        s.push(root);
+        while(!s.empty()){
+            Node *temp = s.top();
+            s.pop();
+            for(int i = 0; i < temp->children.size(); i++)
+                s.push(temp->children[i]);
+            array.push_back(temp->val);
+        }
+        reverse(array.begin(), array.end());
         return array;
     }
 };
