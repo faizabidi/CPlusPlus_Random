@@ -11,53 +11,31 @@
  */
 class Solution {
 public:
-    // O(n) time
-    int getHeight(TreeNode *root){
+    // Find depth of tree
+    int depth(TreeNode *root){
         if(!root)
             return 0;
-        int height = 0;
+        return 1 + max(depth(root->left), depth(root->right));
+    }
+    bool isBalanced(TreeNode* root){
+        if(!root || (!root->left && !root->right))
+            return true;
         queue<TreeNode *> q;
         q.push(root);
-        // Do a level order traversal
         while(!q.empty()){
-            int k = q.size();
-            while(k != 0){
-                TreeNode *temp = q.front(); 
-                q.pop();
-                if(temp->left)
-                    q.push(temp->left);
-                if(temp->right)
-                    q.push(temp->right);
-                k--;
-            }       
-            height++;
-        }
-        return height;
-    }
-    // O(nxn) time
-    bool isBalanced(TreeNode* root){
-        if(!root)
-            return true;
-        std::queue<TreeNode *> q;
-        q.push(root);
-        while(!q.empty()){
-            int k = q.size();
-            while(k > 0){
-                TreeNode *temp = q.front(); 
-                q.pop();
-                int leftHeight = 0, rightHeight = 0;
-                if(temp->left){
-                    leftHeight = getHeight(temp->left);
-                    q.push(temp->left);
-                }
-                if(temp->right){
-                    rightHeight = getHeight(temp->right);
-                    q.push(temp->right);
-                }
-                if(std::abs(rightHeight - leftHeight) > 1)
-                    return false;
-                k--;
+            TreeNode *temp = q.front();
+            q.pop();
+            int left = 0, right = 0;
+            if(temp->left){
+                left = depth(temp->left);
+                q.push(temp->left);
             }
+            if(temp->right){
+                right = depth(temp->right);
+                q.push(temp->right);
+            }
+            if(abs(right - left) > 1)
+                return false;
         }
         return true;
     }
