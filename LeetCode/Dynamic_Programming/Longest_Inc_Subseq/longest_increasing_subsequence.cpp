@@ -6,19 +6,17 @@
 // Recursion seems like a possible solution
 // https://leetcode.com/problems/longest-increasing-subsequence/solution/
 // O(2^n) & O(nxn)
-int longest_increasing_subseq_helper(std::vector<int> array, int prev_val, int current){
+int longest_increasing_subseq_helper(std::vector<int> array, int prev_val, int index){
 
 	// Base case when you reach the end of the vector
-    if(current == array.size())
+    if(index == array.size())
         return 0;
 
     int include = 0;
-    if(array[current] > prev_val)
-    	include = 1 + longest_increasing_subseq_helper(array, 
-                                                array[current], current + 1);
+    if(array[index] > prev_val)
+    	include = 1 + longest_increasing_subseq_helper(array, array[index], index+1);
 
-    int exclude = longest_increasing_subseq_helper(array, 
-                                                prev_val, current + 1);
+    int exclude = longest_increasing_subseq_helper(array, prev_val, index+1);
 
     return std::max(include, exclude);
 }
