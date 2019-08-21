@@ -1,117 +1,130 @@
+// https://www.pramp.com/challenge/O5PGrqGEyKtq9wpgw6XP
+
 #include <iostream>
 #include <vector>
 
 using namespace std;
 
-// Check if a number can be inserted at a position
-bool check(vector<vector<int>> matrix, int num, int i, int j){
-    // Check that row
-    for(int row = 0; row < 9; row++){
-        if(matrix[row][j] == num)
-            return false;
-    }
-    // Check column
-    for(int col = 0; col < 9; col++){
-        if(matrix[i][col] == num)
-            return false;
-    }
-    // Check in the 3x3 sub-matrix
-    int row, col;
-    if(i < 3)
-        i = 0;
-    else if(i < 6)
-        i = 3;
-    else
-        i = 6;
-    if(j < 3)
-        j = 0;
-    else if(j < 6)
-        j = 3;
-    else
-        j = 6;
-    for(int row = i; row < i+3; row++){
-        for(int col = j; col < j+3; col++){
-            if(matrix[row][col] == num)
-                return false;
+// Print the sudoku
+void print(vector<vector<char>> board){
+    for(int i = 0; i < board.size(); i++){
+        for(int j = 0; j < board[i].size(); j++){
+            cout << board[i][j] << " ";
         }
-    }
-    // Else return true that this is a possible number to be inserted here
-    return true;
-}
-
-// Check if all values in the matrix are non-zero
-bool checkMatrixFilled(vector<vector<int>> matrix, int &row, int &col){
-    for(row = 0; row < 9; row++){
-        for(col = 0; col < 9; col++){
-            if(matrix[row][col] == 0)
-                return false;
-        }
-    }
-    return true;
-}
-
-// Solve using backtracking
-bool solveSudoku(vector<vector<int>> &matrix){
-    int row, col;
-    // Success is when the entire matrix is filled
-    if(checkMatrixFilled(matrix, row, col))
-        return true;
-    // Insert a possible number between 1 to 9
-    for(int k = 1; k <= 9; k++){
-        if(check(matrix, k, row, col)){
-            matrix[row][col] = k;
-            // Check if a valid sudoku is formed
-            if(solveSudoku(matrix))
-                return true;
-            // Otherwise, make it zero again and check for the next number 
-            // in the for loop
-            matrix[row][col] = 0;
-        }
-    }
-    // When no suitable number can be inserted, function returns false
-    return false;
-}
-
-// Print the matrix
-void print(vector<vector<int>> matrix){
-    for(int i = 0; i < 9; i++){
-        for(int j = 0; j < 9; j++)
-            cout << matrix[i][j] << " ";
         cout << endl;
     }
+    cout << endl;
 }
 
-int main(){
-    // 0 means empty cell
-    vector<vector<int>> matrix1 = {
-        {3,0,6,5,0,8,4,0,0},
-        {5,2,0,0,0,0,0,0,0},
-        {0,8,7,0,0,0,0,3,1},
-        {0,0,3,0,1,0,0,8,0},
-        {9,0,0,8,6,3,0,0,5},
-        {0,5,0,0,9,0,6,0,0},
-        {1,3,0,0,0,0,2,5,0},
-        {0,0,0,0,0,0,0,7,4},
-        {0,0,5,2,0,6,3,0,0}
-    };
-    vector<vector<int>> matrix = {
-        {0,0,0,0,0,0,2,0,0},
-        {0,8,0,0,0,7,0,9,0},
-        {6,0,2,0,0,0,5,0,0},
-        {0,7,0,0,6,0,0,0,0},
-        {0,0,0,9,0,1,0,0,0},
-        {0,0,0,0,2,0,0,4,0},
-        {0,0,5,0,0,0,6,0,3},
-        {0,9,0,4,0,0,0,7,0},
-        {0,0,6,0,0,0,0,0,0}
-    };
-    cout << "Original matrix\n";
-    print(matrix);
-    cout << "\nSolving the sudoku....\n";
-    if(solveSudoku(matrix))
-        print(matrix);
-    else
-        cout << "Invalid sudoku\n";
+// Check if sudoku is all filled up
+bool checkIfFilled(vector<vector<char>> board){
+    for(int i = 0; i < 9; i++){
+        for(int j = 0; j < 9; j++){
+            if(board[i][j] == '.')
+                return false;
+        }
+    }
+    return true;
+}
 
+// Check if a given number can be inserted at a given position
+bool checkIfInsertOkay(vector<vector<char>> board, int x, int y, char num){
+    // Check row if num already exists
+    for(int j = 0; j < 9; j++){
+        if(board[x][j] == num)
+            return false;
+    }
+    // Check column if num already exists
+    for(int i = 0; i < 9; i++){
+        if(board[i][y] == num)
+            return false;
+    }
+    // Check 3x3 gird if num already exists
+    // Find the corners
+    // Find i
+    if(x < 3)
+        x = 0;
+    else if(x < 6)
+        x = 3;
+    else
+        x = 6;
+    // Find j
+    if(y < 3)
+        y = 0;
+    else if(y < 6)
+        y = 3;
+    else
+        y = 6;
+    // Check the 3x3 box
+    for(int i = x; i < x+3; i++){
+        for(int j = y; j < y+3; j++){
+            if(board[i][j] == num)
+                return false;
+        }
+    }
+    return true;
+}
+
+// Helper function because of const issues
+bool sudokuSolveHelper(vector<vector<char>> &board){
+    // Base condition - if sudoku gets completely filled
+    if(checkIfFilled(board))
+        return true;
+
+    // Iterate through the sudoku
+    for(int i = 0; i < 9; i++){
+        for(int j = 0; j < 9; j++){
+            // If empty space
+            if(board[i][j] == '.'){
+                for(int k = 1; k <= 9; k++){
+                    // Check if char(k) can be inserted at this empty location
+                    char ch = '0' + k;
+                    if(checkIfInsertOkay(board, i, j, ch)){
+                        // Put k in this empty location and check
+                        board[i][j] = ch;
+                        // Check if done
+                        bool flag = sudokuSolveHelper(board);
+                        if(flag)
+                            return true;
+                        else
+                            // Else, backtrack by making it empty again
+                            board[i][j] = '.';
+                    }
+                }
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+// Return true if a correct sudoku can be formed
+// Apply backtracking
+// Time complexity = O(9^empty spaces)
+bool sudokuSolve(vector<vector<char>> &board){
+    return sudokuSolveHelper(board);
+}
+
+int main() {
+
+    vector<vector<char>> board = {
+        {'.','.','.','7','.','.','3','.','1'},
+        {'3','.','.','9','.','.','.','.','.'},
+        {'.','4','.','3','1','.','2','.','.'},
+        {'.','6','.','4','.','.','5','.','.'},
+        {'.','.','.','.','.','.','.','.','.'},
+        {'.','.','1','.','.','8','.','4','.'},
+        {'.','.','6','.','2','1','.','5','.'},
+        {'.','.','.','.','.','9','.','.','8'},
+        {'8','.','5','.','.','4','.','.','.'}
+    };
+    print(board);
+    bool flag = sudokuSolve(board);
+    if(flag){
+        cout << "A solution exists as below\n";
+        print(board);
+    }
+    else
+        cout << "No solution exists!\n";
     return 0;
 }
