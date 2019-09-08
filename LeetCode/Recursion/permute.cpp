@@ -1,25 +1,25 @@
-// https://www.geeksforgeeks.org/write-a-c-program-to-print-all-permutations-of-a-given-string/
+// https://leetcode.com/problems/permutations/
 
-#include <iostream>
-
-using namespace std;
-
-// O(n!) time && O(n^2) space (recursion tree + string length)
-void permute(string str, int index){
-    if(index == str.size()){
-        cout << str << endl;
-        return;
+// Time complexity - O(n!)
+// SPace complexity - O(n) because of recursion
+class Solution {
+public:
+    void permuteHelper(vector<vector<int>> &ans, vector<int> nums, vector<int> temp, int index){
+        if(index == nums.size()){
+            ans.push_back(temp);
+            return;
+        }
+        for(int i = index; i < nums.size(); i++){
+            temp.push_back(nums[i]);
+            // Swap to bring the index's value to the ith position
+            swap(nums[i], nums[index]);
+            permuteHelper(ans, nums, temp, index+1);
+            temp.pop_back(); // For backtracking
+        }
     }
-    // Swapping
-    for(int i = index; i < str.size(); i++){
-        swap(str[i], str[index]);
-        permute(str, index+1);
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> ans;
+        permuteHelper(ans, nums, {}, 0);
+        return ans;
     }
-}
-
-int main(){
-    string str = "abc";
-    permute(str, 0);
-
-    return 0;
-}
+};
