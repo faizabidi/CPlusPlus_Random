@@ -1,5 +1,7 @@
-// http://keithschwarz.com/interesting/code/?dir=find-duplicate
+// https://leetcode.com/problems/find-the-duplicate-number/
 
+
+// http://keithschwarz.com/interesting/code/?dir=find-duplicate
 // Time complexity: O(n)
 // Space complexity: O(1)
 
