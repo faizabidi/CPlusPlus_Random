@@ -27,19 +27,6 @@ int main(){
     vector<string> data = readFile(filename);
     writeToFile(data);
     cout << "Data has been written to file output.txt\n";
-    /*ifstream inputFile(filename);
-
-    string buffer;
-    // Read file line by line and store it in a new vector
-    while(getline(inputFile, buffer))
-        output.push_back(buffer);
-    
-    // Store this output in a new file
-    ofstream outputFile;
-    outputFile.open("output.txt");
-
-    for(int i = 0; i < output.size(); i++)
-        outputFile << "Hello, " + output[i] << endl;*/
     
     return 0;
 }
