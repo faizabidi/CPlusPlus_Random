@@ -1,3 +1,6 @@
+// https://www.youtube.com/watch?v=co4_ahEDCho
+// https://www.techiedelight.com/huffman-coding/
+
 #include <iostream>
 #include <queue>
 #include <vector>
